@@ -1,6 +1,13 @@
 import * as express from 'express';
+import incidents from './modules/incidents/incidents.routes';
 
 const app: express.Express = express();
+
+//var db  = require('./database/models/index.js')
+
+//var users = require('./modules/users/users.routes.js')
+
+incidents(app);
 
 // Middleware
 

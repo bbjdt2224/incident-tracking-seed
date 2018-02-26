@@ -7,12 +7,14 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "gulp start",
     "compile": "npm run clear && tsc -p server/src",
-    "clear": "rm -rf server/dist"
+    "clear": "del -rf server/dist"
   },
   "author": "Tyler Vander Maas",
   "license": "ISC",
   "dependencies": {
-    "express": "^4.16.2"
+    "express": "^4.16.2",
+    "passport": "^0.4.0",
+    "sequelize": "^4.34.0"
   },
   "devDependencies": {
     "@types/express": "^4.11.1",
