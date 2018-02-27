@@ -1,20 +1,18 @@
 import * as express from 'express';
 
-import {IncidentController} from './incidents.controller';
+import IncidentController from './incidents.controller';
 
 export default (app: express.Express): void => {
 
-  //GET /incidents 
+  //GET /incidents
+  //POST /incidents
   app.route('/incidents')
     .get(IncidentController.getAllIncidents)
-  
-  //POST /incidents
-  app.post('/incidents', IncidentController.newIncident)
+    .post(IncidentController.newIncident);
 
   //GET /incident/(id)
-  app.get('/incident/:id', IncidentController.getIncident)
-
-  //PUT /incident/(id)
-  app.put('/incident/:id', IncidentController.editIncident)
-
+   //PUT /incident/(id)
+  app.route('/incident/:id')
+    .get(IncidentController.getIncident)
+    .put(IncidentController.editIncident);
 };

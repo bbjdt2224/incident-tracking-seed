@@ -1,5 +1,5 @@
 module.exports = (sequelize, DataTypes) => {
-  var incidentrevisions = sequelize.define('incidentrevisions', {
+  const incidentrevisions = sequelize.define('incidentrevisions', {
     incidentId: DataTypes.INTEGER,
     revisionNumber: DataTypes.INTEGER,
     type: DataTypes.STRING,
