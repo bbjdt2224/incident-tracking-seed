@@ -1,24 +1,42 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-var db = require('/../../database/models/index');
+const index_1 = require("../../database/models/index");
+const passport = require("passport");
 class UsersController {
-    signup(req, res) {
-        db.users.create({
-            email: req.body.email
+    configure(username, password, done) {
+        index_1.default.users.findOne({ where: { email: username } }).then(function (user) {
+            if (!user) {
+                return done(null, false);
+            }
+            if (!user.verifyPassword(user.password)) {
+                return done(null, false);
+            }
+            passport.serializeUser(function (user, done) {
+                done(null, user);
+            });
+            passport.deserializeUser(function (user, done) {
+                done(null, user);
+            });
+            return done(null, user);
         });
     }
-    login(req, res) {
-        db.users.findOne({
-            where: {
-                email: req.body.email
-            }
+    signup(req, res) {
+        index_1.default.users.create({
+            email: req.body.email
         }).then(function (user) {
+            user.update({
+                password: user.generateHash(req.body.password)
+            });
         });
+        res.send('Added New User');
+    }
+    login(req, res) {
+        res.send('Logged In');
     }
     logout(req, res) {
     }
     editUser(req, res, id) {
-        db.users.update({
+        index_1.default.users.update({
             firstName: req.body.firstName,
             lastName: req.body.lastName,
             role: req.body.role
@@ -27,6 +45,7 @@ class UsersController {
                 id: req.params['id']
             }
         });
+        res.send('User Edited');
     }
 }
-exports.UsersController = UsersController;
+exports.default = new UsersController();

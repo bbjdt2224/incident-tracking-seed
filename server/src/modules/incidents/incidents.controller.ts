@@ -18,12 +18,13 @@ import db from '../../database/models/index';
                 incidentarr.push(revision);
             });
             });
+            res.send(incidentarr);
         });
     }
     newIncident(req, res) {
         db.incidents.create({
             revisionId: 1,
-            userId: req.body.userId,
+            userId: 1,
             trackerId: req.body.trackerId
         }).then(incident => {
             db.incidentrevisions.create({
@@ -41,8 +42,8 @@ import db from '../../database/models/index';
         db.incidents.findById(req.params['id']).then(incident => {
             db.incidentrevisions.findOne({
               where: {
-                incidentId: incident.id,
-                revisionNumber: incident.revisionId
+                incidentId: req.params['id'],
+                revisionNumber: req.params['revision']
               }
             }).then(revision => {
               res.send(revision);
@@ -50,7 +51,7 @@ import db from '../../database/models/index';
         });
     }
     editIncident(req, res, id) {
-        var pastRevision;
+        //tracker changes everything
         db.incidents.findById(req.params['id']).then(incident => {
           db.incidentrevisions.findOne({
             where: {
@@ -58,22 +59,22 @@ import db from '../../database/models/index';
               revisionNumber: incident.revisionId
             }
           }).then(revision => {
-            pastRevision = revision;
+            db.incidentrevisions.create({
+                incidentId: revision.incidentId,
+                revisionNumber: revision.revisionNumber+1,
+                type: req.body.type,
+                shortDescription: req.body.shortDescription,
+                longDescription: req.body.longDescription
+              });
+              db.incidents.update({
+                revisionId: revision.revisionNumber+1,
+                trackerId: req.body.trackerId
+              },{
+                where: {
+                  id: req.params['id']
+                }
+              });
           });
-        });
-        db.incidentrevisions.create({
-          revisionNumber: pastRevision.revisionNumber+1,
-          type: req.body.type,
-          shortDescription: req.body.shortDescription,
-          longDescription: req.body.longDescription
-        });
-        db.incidents.update({
-          revisionId: pastRevision.revisionNumber+1,
-          trackerId: req.body.trackerId
-        },{
-          where: {
-            id: req.params['id']
-          }
         });
     }
 }

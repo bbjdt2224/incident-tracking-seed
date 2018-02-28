@@ -1,7 +1,7 @@
 {
-  "name": "ts-express",
+  "name": "incident-tracking",
   "version": "1.0.0",
-  "description": "sample TypeScript Express app",
+  "description": "Allows users to input incidents and trackers to view and edit incidents",
   "main": "server.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
@@ -9,11 +9,13 @@
     "compile": "npm run clear && tsc -p server/src",
     "clear": "del -rf server/dist"
   },
-  "author": "Tyler Vander Maas",
+  "author": "Justin True",
   "license": "ISC",
   "dependencies": {
+    "bcrypt": "^1.0.3",
     "express": "^4.16.2",
     "passport": "^0.4.0",
+    "passport-local": "^1.0.0",
     "sequelize": "^4.34.0"
   },
   "devDependencies": {
