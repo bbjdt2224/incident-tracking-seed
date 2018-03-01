@@ -9,13 +9,16 @@ module.exports = {
         type: Sequelize.INTEGER
       },
       incidentId: {
-        type: Sequelize.INTEGER
+        type: Sequelize.INTEGER,
+        allowNull: false
       },
       revisionNumber: {
-        type: Sequelize.INTEGER
+        type: Sequelize.INTEGER,
+        allowNull: false
       },
       type: {
-        type: Sequelize.STRING
+        type: Sequelize.STRING,
+        allowNull: false
       },
       shortDescription: {
         type: Sequelize.STRING

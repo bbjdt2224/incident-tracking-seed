@@ -21,7 +21,9 @@ module.exports = {
         type: Sequelize.STRING
       },
       isTracker: {
-        type: Sequelize.BOOLEAN
+        type: Sequelize.BOOLEAN,
+        allowNull: false,
+        defaultValue: '0'
       },
       role: {
         type: Sequelize.STRING

@@ -3,7 +3,7 @@ import * as passport from 'passport';
 
 
 class UsersController {
-
+    //sets up passport to deal with login authentication
     configure(username, password, done) {
         db.users.findOne({ where: { email: username }}).then( function (user) {
             if (!user) { return done(null, false); }
@@ -17,10 +17,16 @@ class UsersController {
             return done(null, user);
         });
     }
-
+    /* POST /signup
+    adds new user to database
+        email
+        isTracker
+        password
+    */
     signup(req, res) {
         db.users.create({
-            email: req.body.email
+            email: req.body.email,
+            isTracker: req.body.isTracker
         }).then(function(user) {
             user.update ({
                 password: user.generateHash(req.body.password)
@@ -28,13 +34,30 @@ class UsersController {
         });
         res.send('Added New User');
     }
+    /* POST /login
+    if username and password are correct then redirect to next page
+        email
+        password
+    */
     login(req, res) {
         res.send('Logged In');
         //redirect
     }
+    /* POST /logout
+    logout the user
+    */
     logout(req, res) {
-        //logout
+        req.logout();
+        res.send('Logged Out');
+        //redirect
     }
+
+    /* PUT /user/:id
+    changes the users information
+        firstName
+        lastName
+        role
+    */
     editUser(req, res, id) {
         db.users.update({
             firstName: req.body.firstName,

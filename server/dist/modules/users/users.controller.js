@@ -22,7 +22,8 @@ class UsersController {
     }
     signup(req, res) {
         index_1.default.users.create({
-            email: req.body.email
+            email: req.body.email,
+            isTracker: req.body.isTracker
         }).then(function (user) {
             user.update({
                 password: user.generateHash(req.body.password)
@@ -34,6 +35,8 @@ class UsersController {
         res.send('Logged In');
     }
     logout(req, res) {
+        req.logout();
+        res.send('Logged Out');
     }
     editUser(req, res, id) {
         index_1.default.users.update({
