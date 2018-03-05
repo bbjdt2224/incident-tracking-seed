@@ -40,8 +40,7 @@ class UsersController {
         password
     */
     login(req, res) {
-        res.send('Logged In');
-        //redirect
+        res.send(req.session.passport.user);
     }
     /* POST /logout
     logout the user
@@ -58,7 +57,7 @@ class UsersController {
         lastName
         role
     */
-    editUser(req, res, id) {
+    editUser(req, res) {
         db.users.update({
             firstName: req.body.firstName,
             lastName: req.body.lastName,
@@ -69,6 +68,19 @@ class UsersController {
             }
         });
         res.send('User Edited');
+    }
+
+    /* GET /tracker
+    gets all the trackers
+    */
+    getTrackers(req, res) {
+        db.users.findAll({
+            where: {
+                isTracker: 't'
+            }
+        }).then(function(trackers) {
+            res.send(trackers);
+        });
     }
 }
 

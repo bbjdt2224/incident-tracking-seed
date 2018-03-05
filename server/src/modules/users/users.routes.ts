@@ -16,11 +16,13 @@ export default (app: express.Express): void => {
   //app.use(app.router);
   passport.use(new LocalStrategy({usernameField: 'email', passwordField: 'password'}, UsersController.configure));
 
-  app.post('/signup', UsersController.signup);
+  app.post('/api/signup', UsersController.signup);
 
-  app.post('/login', passport.authenticate('local', { failureRedirect: '/login' }), UsersController.login);
+  app.post('/api/login', passport.authenticate('local', { failureRedirect: '/login' }), UsersController.login);
 
-  app.post('/logout', UsersController.logout);
+  app.post('/api/logout', UsersController.logout);
 
-  app.put('/user/:id', UsersController.editUser);
+  app.put('/api/user/:id', UsersController.editUser);
+
+  app.get('/api/trackers', UsersController.getTrackers);
 };

@@ -1,31 +1,39 @@
+<div class="row">
+  <div class="col-md-3">Security Weaknesses: </div>
+  <div class="col-md-3">Minor Incidents: </div>
+  <div class="col-md-3"> Major Incidents: </div>
+  <div class="col-md-3"><button type="button" class="btn btn-default" routerLink="/newIncident">New Incident</button></div>
+</div>
+<br>
 <table class="table">
   <thead>
     <th>Time</th>
     <th>Date</th>
     <th>Short Description</th>
     <th>Resolved</th>
+    <th>Type</th>
     <th>Severity</th>
     <th>View</th>
   </thead>
   <tbody>
       <tr *ngFor="let incident of incidents">
         <td>
-          {{incident.id}}
+          {{incident.createdAt}}
         </td>
         <td>
-          {{incident.id}}
+          {{incident.createdAt}}
         </td>
         <td>
-          {{incident.shortDescription}}
+          {{incident.incidentrevisions[0].shortDescription}}
         </td>
         <td>
-          {{incident.resolved}}
+          {{incident.incidentrevisions[0].resolved}}
         </td>
         <td>
-          {{incident.type}}
+          {{incident.incidentrevisions[0].type}}
         </td>
         <td>
-          {{incident.severity}}
+          {{incident.incidentrevisions[0].severity}}
         </td>
         <td>
           <button class="btn btn default" routerLink="/incident/{{incident.id}}">View</button>

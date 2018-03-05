@@ -1,6 +1,7 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
+import { HttpClientModule } from '@angular/common/http';
 
 
 import { AppComponent } from './app.component';
@@ -10,6 +11,7 @@ import { IncidentsService } from './incidents.service';
 import { IncidentDetailsComponent } from './incident-details/incident-details.component';
 import { UserService } from './user.service';
 import { NewIncidentComponent } from './new-incident/new-incident.component';
+import { LoginComponent } from './login/login.component';
 
 
 @NgModule({
@@ -17,12 +19,14 @@ import { NewIncidentComponent } from './new-incident/new-incident.component';
     AppComponent,
     IncidentsComponent,
     IncidentDetailsComponent,
-    NewIncidentComponent
+    NewIncidentComponent,
+    LoginComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
-    FormsModule
+    FormsModule,
+    HttpClientModule
   ],
   providers: [
     IncidentsService,

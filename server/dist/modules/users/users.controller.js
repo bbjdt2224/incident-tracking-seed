@@ -32,13 +32,13 @@ class UsersController {
         res.send('Added New User');
     }
     login(req, res) {
-        res.send('Logged In');
+        res.send(req.session.passport.user);
     }
     logout(req, res) {
         req.logout();
         res.send('Logged Out');
     }
-    editUser(req, res, id) {
+    editUser(req, res) {
         index_1.default.users.update({
             firstName: req.body.firstName,
             lastName: req.body.lastName,
@@ -49,6 +49,15 @@ class UsersController {
             }
         });
         res.send('User Edited');
+    }
+    getTrackers(req, res) {
+        index_1.default.users.findAll({
+            where: {
+                isTracker: 't'
+            }
+        }).then(function (trackers) {
+            res.send(trackers);
+        });
     }
 }
 exports.default = new UsersController();

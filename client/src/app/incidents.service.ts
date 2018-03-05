@@ -1,22 +1,36 @@
 import { Injectable } from '@angular/core';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Incident } from './incidents';
 import { Observable } from 'rxjs/Observable';
 import { of } from 'rxjs/observable/of';
-import { Incidents } from './testfile';
+import { IncidentRevision } from './incidentrevisions';
+
+const httpOptions = {
+  headers: new HttpHeaders({ 'Content-Type': 'application/json' })
+};
 
 @Injectable()
 export class IncidentsService {
 
+  constructor (
+    private http: HttpClient
+  ) {}
+
   getIncidents(): Observable<Incident[]> {
-    return of(Incidents);
+    return this.http.get<Incident[]>('/api/incidents');
   }
 
   getIncident(id: number): Observable<Incident> {
-    return of(Incidents.find(incident => incident.id === id));
+    return this.http.get<Incident>('/api/incident/' + id);
   }
 
-  addIncident(incident: Incident): void {
-    Incidents.push(incident);
+  addIncident(incident: Incident, incidentrevision: IncidentRevision): Observable<Incident> {
+    return this.http.post<Incident>('/api/incidents', {
+      'trackerId': incident.trackerId,
+      'type': incidentrevision.type,
+      'shortDescription': incidentrevision.shortDescription,
+      'longDescription': incidentrevision.longDescription
+    }, httpOptions);
   }
 
 }

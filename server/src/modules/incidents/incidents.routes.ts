@@ -14,13 +14,13 @@ export default (app: express.Express): void => {
   app.use(bodyParser.json());
   //GET /incidents
   //POST /incidents
-  app.route('/incidents')
+  app.route('/api/incidents')
     .get(IncidentController.getAllIncidents)
     .post(IncidentController.newIncident);
 
   //GET /incident/(id)
   //PUT /incident/(id)
-  app.route('/incident/:id')
+  app.route('/api/incident/:id')
     .get(IncidentController.getIncident)
     .put(IncidentController.editIncident);
 };

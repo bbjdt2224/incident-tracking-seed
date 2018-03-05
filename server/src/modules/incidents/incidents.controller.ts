@@ -7,25 +7,18 @@ import db from '../../database/models/index';
     */
     getAllIncidents(req, res) {
         const incidentarr = [];
-        if(req.user) {
+        //if(req.user) {
             //user
             if(req.session.passport.user.isTracker === false) {
                 db.incidents.findAll({
                     where: {
                     userId: req.session.passport.user.id
-                    }
+                    },
+                    include: [
+                        db.incidentrevisions
+                    ]
                 }).then(incidents => {
-                    incidents.forEach(incident => {
-                        db.incidentrevisions.findOne({
-                            where: {
-                            incidentId: incident.id,
-                            revisionNumber: incident.revisionId
-                            }
-                        }).then(revision => {
-                            incidentarr.push(revision);
-                        });
-                    });
-                    res.send(incidentarr);
+                    res.send(incidents);
                 });
             }
             //tracker
@@ -34,21 +27,15 @@ import db from '../../database/models/index';
                     where: {
                     trackerId: req.session.passport.user.id
                     }
+                    ,
+                    include: [
+                        db.incidentrevisions
+                    ]
                 }).then(incidents => {
-                    incidents.forEach(incident => {
-                        db.incidentrevisions.findOne({
-                            where: {
-                            incidentId: incident.id,
-                            revisionNumber: incident.revisionId
-                            }
-                        }).then(revision => {
-                            incidentarr.push(revision);
-                        });
-                    });
-                    res.send(incidentarr);
+                    res.send(incidents);
                 });
             }
-        }
+        //}
     }
     /* POST /incidents
     inserts a new incident with above information into database
@@ -81,15 +68,16 @@ import db from '../../database/models/index';
     rerurns incident
     */
     getIncident(req, res) {
-        db.incidents.findById(req.params['id']).then(incident => {
-            db.incidentrevisions.findOne({
-              where: {
-                incidentId: incident.id,
-                revisionNumber: incident.revisionid
-              }
-            }).then(revision => {
-              res.send(revision);
-            });
+        db.incidents.findOne({where: {id: req.params['id']}, include: [db.incidentrevisions]}).then(incident => {
+            // db.incidentrevisions.findOne({
+            //   where: {
+            //     incidentId: incident.id,
+            //     revisionNumber: incident.revisionId
+            //   }
+            // }).then(revision => {
+            //   res.send(revision);
+            // });
+            res.send(incident);
         });
     }
     /* PUT /incident/:id

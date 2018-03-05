@@ -1,0 +1,8 @@
+<form>
+  Email:
+  <input #email type="text" class="form-control" >
+  Password: 
+  <input #password type="password" class="form-control">
+  <br>
+  <button (click)="login(email.value, password.value)" class="btn btn-defaule">Login</button>
+</form>

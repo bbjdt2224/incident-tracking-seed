@@ -29,6 +29,9 @@ export class IncidentDetailsComponent implements OnInit {
       .subscribe(incident => this.incident = incident);
   }
 
+  update(): void {
+  }
+
   goBack(): void {
     this.location.back();
   }
