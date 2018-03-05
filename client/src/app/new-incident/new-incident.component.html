@@ -1,0 +1,15 @@
+<form>
+  Brief Description: 
+  <input type="text" name='shortDescription' class='form-control'>
+  Detailed Description:
+  <textarea class="form-control" name="longDescription"></textarea>
+  Incident Type:
+  <select name="type" class="form-control">
+    <option value="technology">Technology</option>
+    <option value="other">Other</option>
+  </select>
+  <select name="tracker" class="form-control">
+    <option *ngFor="let tracker of trackers" value="{{tracker.id}}">{{tracker.firstName}} {{tracker.lastName}}</option>
+  </select>
+  <button type="submit" class="btn btn-default">Submit</button>
+</form>

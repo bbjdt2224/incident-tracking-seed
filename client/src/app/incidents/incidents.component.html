@@ -1,0 +1,35 @@
+<table class="table">
+  <thead>
+    <th>Time</th>
+    <th>Date</th>
+    <th>Short Description</th>
+    <th>Resolved</th>
+    <th>Severity</th>
+    <th>View</th>
+  </thead>
+  <tbody>
+      <tr *ngFor="let incident of incidents">
+        <td>
+          {{incident.id}}
+        </td>
+        <td>
+          {{incident.id}}
+        </td>
+        <td>
+          {{incident.shortDescription}}
+        </td>
+        <td>
+          {{incident.resolved}}
+        </td>
+        <td>
+          {{incident.type}}
+        </td>
+        <td>
+          {{incident.severity}}
+        </td>
+        <td>
+          <button class="btn btn default" routerLink="/incident/{{incident.id}}">View</button>
+        </td>
+      </tr>
+  </tbody>
+</table>
