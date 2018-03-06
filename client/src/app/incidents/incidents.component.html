@@ -1,43 +1,48 @@
-<div class="row">
-  <div class="col-md-3">Security Weaknesses: </div>
-  <div class="col-md-3">Minor Incidents: </div>
-  <div class="col-md-3"> Major Incidents: </div>
-  <div class="col-md-3"><button type="button" class="btn btn-default" routerLink="/newIncident">New Incident</button></div>
+<div *ngIf="user">
+  <div class="row">
+    <div *ngIf="user.isTracker" class="col-md-3">Security Weaknesses: {{weakness}}</div>
+    <div *ngIf="user.isTracker" class="col-md-3">Minor Incidents: {{minor}}</div>
+    <div *ngIf="user.isTracker" class="col-md-3"> Major Incidents: {{major}}</div>
+    <div *ngIf="!user.isTracker" class="col-md-3"><button type="button" class="btn btn-default" routerLink="/newIncident">New Incident</button></div>
+  </div>
+  <br>
+  <table class="table">
+    <thead>
+      <th>Time</th>
+      <th>Date</th>
+      <th>Short Description</th>
+      <th>Resolved</th>
+      <th>Type</th>
+      <th>Severity</th>
+      <th>View</th>
+    </thead>
+    <tbody>
+      <script> counter = 0; </script>
+        <tr *ngFor="let incident of incidents">
+          <td>
+            {{incident.createdAt}}
+          </td>
+          <td>
+            {{incident.createdAt}}
+          </td>
+          <td>
+            {{incident.incidentrevisions[findRevision(incident)].shortDescription}}
+          </td>
+          <td>
+            {{incident.incidentrevisions[findRevision(incident)].resolved}}
+          </td>
+          <td>
+            {{incident.incidentrevisions[findRevision(incident)].type}}
+          </td>
+          <td>
+            {{incident.incidentrevisions[findRevision(incident)].severity}}
+          </td>
+          <td>
+            <button class="btn btn default" routerLink="/incident/{{incident.id}}">View</button>
+          </td>
+          <script>counter ++;</script>
+        </tr>
+    </tbody>
+  </table>
 </div>
-<br>
-<table class="table">
-  <thead>
-    <th>Time</th>
-    <th>Date</th>
-    <th>Short Description</th>
-    <th>Resolved</th>
-    <th>Type</th>
-    <th>Severity</th>
-    <th>View</th>
-  </thead>
-  <tbody>
-      <tr *ngFor="let incident of incidents">
-        <td>
-          {{incident.createdAt}}
-        </td>
-        <td>
-          {{incident.createdAt}}
-        </td>
-        <td>
-          {{incident.incidentrevisions[0].shortDescription}}
-        </td>
-        <td>
-          {{incident.incidentrevisions[0].resolved}}
-        </td>
-        <td>
-          {{incident.incidentrevisions[0].type}}
-        </td>
-        <td>
-          {{incident.incidentrevisions[0].severity}}
-        </td>
-        <td>
-          <button class="btn btn default" routerLink="/incident/{{incident.id}}">View</button>
-        </td>
-      </tr>
-  </tbody>
-</table>
+

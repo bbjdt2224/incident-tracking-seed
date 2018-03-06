@@ -25,4 +25,6 @@ export default (app: express.Express): void => {
   app.put('/api/user/:id', UsersController.editUser);
 
   app.get('/api/trackers', UsersController.getTrackers);
+
+  app.get('/api/user', UsersController.getUser);
 };

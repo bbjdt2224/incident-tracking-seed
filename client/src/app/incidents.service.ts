@@ -33,4 +33,15 @@ export class IncidentsService {
     }, httpOptions);
   }
 
+  updateIncident(incident: Incident): Observable<any> {
+    return this.http.put('/api/incident/' + incident.id, {
+      'trackerId': incident.trackerId,
+      'type': incident.incidentrevisions[incident.incidentrevisions.length - 1].type,
+      'shortDescription': incident.incidentrevisions[incident.incidentrevisions.length - 1].shortDescription,
+      'longDescription': incident.incidentrevisions[incident.incidentrevisions.length - 1].longDescription,
+      'resolution': incident.incidentrevisions[incident.incidentrevisions.length - 1].resolution,
+      'severity': incident.incidentrevisions[incident.incidentrevisions.length - 1].severity
+    }, httpOptions);
+  }
+
 }

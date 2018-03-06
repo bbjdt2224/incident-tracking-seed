@@ -12,6 +12,8 @@ import { IncidentDetailsComponent } from './incident-details/incident-details.co
 import { UserService } from './user.service';
 import { NewIncidentComponent } from './new-incident/new-incident.component';
 import { LoginComponent } from './login/login.component';
+import { HeaderComponent } from './header/header.component';
+import { UserInfoComponent } from './user-info/user-info.component';
 
 
 @NgModule({
@@ -20,7 +22,9 @@ import { LoginComponent } from './login/login.component';
     IncidentsComponent,
     IncidentDetailsComponent,
     NewIncidentComponent,
-    LoginComponent
+    LoginComponent,
+    HeaderComponent,
+    UserInfoComponent
   ],
   imports: [
     BrowserModule,

@@ -22,4 +22,20 @@ export class UserService {
   getTrackers(): Observable<User[]> {
     return this.http.get<User[]>('/api/trackers');
   }
+
+  getUser(): Observable<User> {
+    return this.http.get<User>('/api/user');
+  }
+
+  logout(): Observable<any> {
+    return this.http.post('/api/logout', {}, httpOptions);
+  }
+
+  update(user: User): Observable<any> {
+    return this.http.put('/api/user/' + user.id, {
+        'firstName': user.firstName,
+        'lastName': user.lastName,
+        'role': user.role
+    }, httpOptions);
+  }
 }

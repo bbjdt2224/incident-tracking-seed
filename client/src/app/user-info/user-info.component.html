@@ -1,0 +1,10 @@
+<form>
+  First Name: 
+  <input #first type="text" class="form-control" value="{{user.firstName}}">
+  Last Name: 
+  <input #last type="text" class="form-control" value="{{user.lastName}}">
+  Role: 
+  <input #role type="text" class="form-control" value="{{user.role}}">
+  <br>
+  <button (click)="updateUser(first.value, last.value, role.value)" class="btn btn-default">Save</button>
+</form>

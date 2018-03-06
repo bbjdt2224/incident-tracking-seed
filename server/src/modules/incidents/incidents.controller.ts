@@ -96,7 +96,7 @@ import db from '../../database/models/index';
         trackerId
     */
     editIncident(req, res) {
-        if(req.user) {
+        //if(req.user) {
             //user
             if(req.session.passport.user.isTracker === false) {
                 db.incidents.findById(req.params['id']).then(incident => {
@@ -153,7 +153,7 @@ import db from '../../database/models/index';
                     });
                 });
             }
-        }
+        //}
     }
 }
 

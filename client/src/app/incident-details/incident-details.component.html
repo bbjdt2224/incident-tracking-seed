@@ -1,10 +1,26 @@
 <div class="container">
   <form>
-    Brief Description: <input type="text" name="shortDescription" value="{{incident.incidentrevisions[0].shortDescription}}" class="form-control">
-    Detailed Description: <textarea name="longDescription" class="form-control" >{{incident.incidentrevisions[0].longDescription}}</textarea>
-    Incident Type: <input type="text" name="type" value="{{incident.incidentrevisions[0].type}}" class="form-control">
-    Tracker: <input type="text" name="tracker" value="{{incident.trackerId}}" class="form-control">
+    Brief Description: <input #short type="text" value="{{incident.incidentrevisions[revision].shortDescription}}" class="form-control">
+    Detailed Description: <textarea #long class="form-control" >{{incident.incidentrevisions[revision].longDescription}}</textarea>
+    Incident Type: 
+    <select #type class="form-control">
+      <option value="Technical">Technical</option>
+      <option value="Other">Other</option> 
+    </select>
+    Tracker: 
+      <select #tracker class="form-control">
+          <option *ngFor="let tracker of trackers" value="{{tracker.id}}">{{tracker.firstName}} {{tracker.lastName}}</option>
+      </select>
+    <div>
+      Resolution: <textarea #resolution class="form-control">{{incident.incidentrevisions[revision].resolution}}</textarea>
+      Severity: 
+      <select #severity class="form-control">
+        <option value="1">Security Weaknesses</option>
+        <option value="2">Minor Incidents</option>
+        <option value="3">Major Incidents</option>
+      </select>
+    </div>
     <br>
-    <button type="submit" class="btn btn-default">Submit</button>
+    <button (click)="update(short.value, long.value, type.value, tracker.value, resolution.value, severity.value)" class="btn btn-default">Submit</button>
   </form>
 </div>
