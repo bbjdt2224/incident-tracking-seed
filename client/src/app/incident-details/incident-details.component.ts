@@ -53,8 +53,7 @@ export class IncidentDetailsComponent implements OnInit {
       this.incident.incidentrevisions[this.revision].severity = severity;
     }
     this.incident.trackerId = tracker;
-    this.incidentService.updateIncident(this.incident).subscribe();
-    this.goBack();
+    this.incidentService.updateIncident(this.incident).subscribe(result => this.goBack());
   }
 
   getUser(): void {
@@ -67,7 +66,7 @@ export class IncidentDetailsComponent implements OnInit {
   }
 
   goBack(): void {
-    this.location.back();
+    this.router.navigate(['/incidents']);
   }
 
   redirect() {

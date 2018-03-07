@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { User } from '../user';
 import {UserService } from '../user.service';
 import { Location } from '@angular/common';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-user-info',
@@ -15,6 +16,7 @@ export class UserInfoComponent implements OnInit {
   constructor(
     private userService: UserService,
     private location: Location,
+    private router: Router
   ) { }
 
   ngOnInit() {
@@ -23,6 +25,9 @@ export class UserInfoComponent implements OnInit {
 
   getUser() {
     this.userService.getUser().subscribe(user => {
+      if (!user) {
+        this.redirect();
+      }
       this.user = user;
     });
   }
@@ -31,12 +36,15 @@ export class UserInfoComponent implements OnInit {
     this.user.firstName = first;
     this.user.lastName = last;
     this.user.role = role;
-    this.userService.update(this.user).subscribe();
-    this.goBack();
+    this.userService.update(this.user).subscribe(result => this.goBack());
   }
 
   goBack() {
     this.location.back();
+  }
+
+  redirect() {
+    this.router.navigate(['/login']);
   }
 
 }

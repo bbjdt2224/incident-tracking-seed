@@ -33,8 +33,8 @@ export class IncidentsService {
     }, httpOptions);
   }
 
-  updateIncident(incident: Incident): Observable<any> {
-    return this.http.put('/api/incident/' + incident.id, {
+  updateIncident(incident: Incident): Observable<Incident> {
+    return this.http.put<Incident>('/api/incident/' + incident.id, {
       'trackerId': incident.trackerId,
       'type': incident.incidentrevisions[incident.incidentrevisions.length - 1].type,
       'shortDescription': incident.incidentrevisions[incident.incidentrevisions.length - 1].shortDescription,

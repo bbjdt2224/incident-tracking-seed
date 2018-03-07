@@ -1,4 +1,7 @@
 <div class="container">
+    <app-header></app-header>
+</div>
+<div class="container">
   <form>
     Brief Description: <input #short type="text" value="{{incident.incidentrevisions[revision].shortDescription}}" class="form-control">
     Detailed Description: <textarea #long class="form-control" >{{incident.incidentrevisions[revision].longDescription}}</textarea>
@@ -11,7 +14,7 @@
       <select #tracker class="form-control">
           <option *ngFor="let tracker of trackers" value="{{tracker.id}}">{{tracker.firstName}} {{tracker.lastName}}</option>
       </select>
-    <div>
+    <div *ngIf="user.isTracker">
       Resolution: <textarea #resolution class="form-control">{{incident.incidentrevisions[revision].resolution}}</textarea>
       Severity: 
       <select #severity class="form-control">
@@ -19,8 +22,12 @@
         <option value="2">Minor Incidents</option>
         <option value="3">Major Incidents</option>
       </select>
+      <br>
+      <button (click)="update(short.value, long.value, type.value, tracker.value, resolution.value, severity.value)" class="btn btn-default">Submit</button>
     </div>
-    <br>
-    <button (click)="update(short.value, long.value, type.value, tracker.value, resolution.value, severity.value)" class="btn btn-default">Submit</button>
+    <div *ngIf="!user.isTracker">
+        <br>
+      <button (click)="update(short.value, long.value, type.value, tracker.value)" class="btn btn-default">Submit</button>
+    </div>
   </form>
 </div>

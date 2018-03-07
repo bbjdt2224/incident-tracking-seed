@@ -5,6 +5,7 @@ import { UserService } from '../user.service';
 import { User } from '../user';
 import { Location } from '@angular/common';
 import { IncidentRevision } from '../incidentrevisions';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-new-incident',
@@ -16,11 +17,13 @@ export class NewIncidentComponent implements OnInit {
   incident: Incident = new Incident;
   incidentrevision: IncidentRevision = new IncidentRevision;
   trackers: User[];
+  user: User;
 
   constructor(
     private incidentService: IncidentsService,
     private location: Location,
-    private userService: UserService
+    private userService: UserService,
+    private router: Router
   ) { }
 
   ngOnInit() {
@@ -43,5 +46,7 @@ export class NewIncidentComponent implements OnInit {
   goBack(): void {
     this.location.back();
   }
+
+
 
 }

@@ -106,21 +106,23 @@ import db from '../../database/models/index';
                         revisionNumber: incident.revisionId
                         }
                     }).then(revision => {
-                        db.incidentrevisions.create({
-                            incidentId: revision.incidentId,
-                            revisionNumber: revision.revisionNumber+1,
-                            type: req.body.type,
-                            shortDescription: req.body.shortDescription,
-                            longDescription: req.body.longDescription
-                        });
-                        db.incidents.update({
-                            revisionId: revision.revisionNumber+1,
-                            trackerId: req.body.trackerId
-                        },{
-                            where: {
-                            id: req.params['id']
-                            }
-                        });
+                        Promise.all([
+                            db.incidentrevisions.create({
+                                incidentId: revision.incidentId,
+                                revisionNumber: revision.revisionNumber+1,
+                                type: req.body.type,
+                                shortDescription: req.body.shortDescription,
+                                longDescription: req.body.longDescription
+                            }),
+                            db.incidents.update({
+                                revisionId: revision.revisionNumber+1,
+                                trackerId: req.body.trackerId
+                            },{
+                                where: {
+                                id: req.params['id']
+                                }
+                            })
+                        ]).then(success => {res.send(success);}, error => {res.send(error);} ).catch();
                     });
                 });
             }
@@ -133,23 +135,25 @@ import db from '../../database/models/index';
                         revisionNumber: incident.revisionId
                         }
                     }).then(revision => {
-                        db.incidentrevisions.create({
-                            incidentId: revision.incidentId,
-                            revisionNumber: revision.revisionNumber+1,
-                            type: req.body.type,
-                            shortDescription: req.body.shortDescription,
-                            longDescription: req.body.longDescription,
-                            resolution: req.body.resolution,
-                            severity: req.body.severity
-                        });
-                        db.incidents.update({
-                            revisionId: revision.revisionNumber+1,
-                            trackerId: req.body.trackerId
-                        },{
-                            where: {
-                            id: req.params['id']
-                            }
-                        });
+                        Promise.all([
+                            db.incidentrevisions.create({
+                                incidentId: revision.incidentId,
+                                revisionNumber: revision.revisionNumber+1,
+                                type: req.body.type,
+                                shortDescription: req.body.shortDescription,
+                                longDescription: req.body.longDescription,
+                                resolution: req.body.resolution,
+                                severity: req.body.severity
+                            }),
+                            db.incidents.update({
+                                revisionId: revision.revisionNumber+1,
+                                trackerId: req.body.trackerId
+                            },{
+                                where: {
+                                id: req.params['id']
+                                }
+                            })
+                        ]).then(success => {res.send(success);}, error => {res.send(error);}).catch();
                     });
                 });
             }

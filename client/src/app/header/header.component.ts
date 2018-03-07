@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { UserService } from '../user.service';
+import { IncidentsService } from '../incidents.service';
 import { User } from '../user';
 import { Router } from '@angular/router';
 
@@ -14,6 +15,7 @@ export class HeaderComponent implements OnInit {
 
   constructor(
     private userService: UserService,
+    private incidentService: IncidentsService,
     private router: Router
   ) { }
 
@@ -27,7 +29,16 @@ export class HeaderComponent implements OnInit {
   }
 
   getUser(): void {
-    this.userService.getUser().subscribe(user => this.user = user);
+    this.userService.getUser().subscribe(user => {
+      if (!user) {
+        this.redirect();
+      }
+      this.user = user;
+    });
+  }
+
+  redirect() {
+    this.router.navigate(['/login']);
   }
 
   info() {

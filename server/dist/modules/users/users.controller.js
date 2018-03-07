@@ -47,11 +47,12 @@ class UsersController {
             where: {
                 id: req.params['id']
             }
+        }).then(user => {
+            req.session.passport.user.firstName = req.body.firstName;
+            req.session.passport.user.lastName = req.body.lastName;
+            req.session.passport.user.role = req.body.role;
+            res.send();
         });
-        req.session.passport.user.firstName = req.body.firstName;
-        req.session.passport.user.lastName = req.body.lastName;
-        req.session.passport.user.role = req.body.role;
-        res.send('User Edited');
     }
     getTrackers(req, res) {
         index_1.default.users.findAll({
