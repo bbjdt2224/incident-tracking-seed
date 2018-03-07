@@ -40,7 +40,7 @@ export class UserInfoComponent implements OnInit {
   }
 
   goBack() {
-    this.location.back();
+    this.router.navigate(['/incidents']);
   }
 
   redirect() {

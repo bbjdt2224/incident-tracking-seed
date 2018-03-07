@@ -18,6 +18,9 @@ export class IncidentDetailsComponent implements OnInit {
   user: User;
   revision = 0;
   trackers: User[];
+  weakness = false;
+  minor = false;
+  major = false;
 
   constructor(
     private route: ActivatedRoute,
@@ -42,15 +45,12 @@ export class IncidentDetailsComponent implements OnInit {
       });
   }
 
-  update(short: string, long: string, type: string, tracker: number, reason: string, severity: number): void {
+  update(short: string, long: string, type: string, tracker: number, reason: string): void {
     this.incident.incidentrevisions[this.revision].shortDescription = short;
     this.incident.incidentrevisions[this.revision].longDescription = long;
     this.incident.incidentrevisions[this.revision].type = type;
     if (reason != null) {
       this.incident.incidentrevisions[this.revision].resolution = reason;
-    }
-    if (severity != null) {
-      this.incident.incidentrevisions[this.revision].severity = severity;
     }
     this.incident.trackerId = tracker;
     this.incidentService.updateIncident(this.incident).subscribe(result => this.goBack());

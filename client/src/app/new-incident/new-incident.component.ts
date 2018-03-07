@@ -35,8 +35,7 @@ export class NewIncidentComponent implements OnInit {
     this.incidentrevision.shortDescription = short;
     this.incidentrevision.longDescription = long;
     this.incidentrevision.type = type;
-    this.incidentService.addIncident(this.incident, this.incidentrevision).subscribe(incident => this.incident = incident);
-    this.goBack();
+    this.incidentService.addIncident(this.incident, this.incidentrevision).subscribe(() => this.goBack());
   }
 
   getTracker() {

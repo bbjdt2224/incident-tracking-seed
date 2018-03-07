@@ -38,4 +38,12 @@ export class UserService {
         'role': user.role
     }, httpOptions);
   }
+
+  newUser(user: User): Observable<any> {
+    return this.http.post('/api/signup', {
+      'email': user.email,
+      'password': user.password,
+      'isTracker': user.isTracker
+    }, httpOptions );
+  }
 }

@@ -1,0 +1,16 @@
+<div class="container">
+  <app-header></app-header>
+</div>
+<form>
+  Email: 
+  <input #email type="text" class="form-control">
+  Password: 
+  <input #password type="password" class="form-control">
+  Tracker:
+  <select #tracker class="form-control">
+    <option value="true">Yes</option>
+    <option value="false">No</option>
+  </select> 
+  <br>
+  <button (click)="addUser(email.value, password.value, tracker.value)" class="btn btn-default">Create</button>
+</form>

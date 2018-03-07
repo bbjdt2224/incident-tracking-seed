@@ -15,6 +15,7 @@ import { NewIncidentComponent } from './new-incident/new-incident.component';
 import { LoginComponent } from './login/login.component';
 import { HeaderComponent } from './header/header.component';
 import { UserInfoComponent } from './user-info/user-info.component';
+import { NewUserComponent } from './new-user/new-user.component';
 
 
 @NgModule({
@@ -25,7 +26,8 @@ import { UserInfoComponent } from './user-info/user-info.component';
     NewIncidentComponent,
     LoginComponent,
     HeaderComponent,
-    UserInfoComponent
+    UserInfoComponent,
+    NewUserComponent
   ],
   imports: [
     NgbModule.forRoot(),

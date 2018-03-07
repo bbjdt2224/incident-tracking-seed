@@ -57,10 +57,10 @@ import db from '../../database/models/index';
                 shortDescription: req.body.shortDescription,
                 longDescription: req.body.longDescription
             }).then(function(revision) {
-              return revision.setIncident(incident);
+                revision.setIncident(incident);
+                res.send(incident);
             });
         });
-        res.send('Done');
     }
     /* GET /incident/:id
     gets an incident by id

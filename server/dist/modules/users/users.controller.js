@@ -23,13 +23,15 @@ class UsersController {
     signup(req, res) {
         index_1.default.users.create({
             email: req.body.email,
-            isTracker: req.body.isTracker
+            isTracker: req.body.isTracker,
+            firstName: 'Insert',
+            lastName: 'Name'
         }).then(function (user) {
             user.update({
                 password: user.generateHash(req.body.password)
             });
+            res.send(user);
         });
-        res.send('Added New User');
     }
     login(req, res) {
         res.send(req.session.passport.user);
@@ -51,7 +53,7 @@ class UsersController {
             req.session.passport.user.firstName = req.body.firstName;
             req.session.passport.user.lastName = req.body.lastName;
             req.session.passport.user.role = req.body.role;
-            res.send();
+            res.send(user);
         });
     }
     getTrackers(req, res) {

@@ -6,6 +6,7 @@
     <div *ngIf="user.isTracker" class="col-md-3">Security Weaknesses: {{weakness}}</div>
     <div *ngIf="user.isTracker" class="col-md-3">Minor Incidents: {{minor}}</div>
     <div *ngIf="user.isTracker" class="col-md-3"> Major Incidents: {{major}}</div>
+    <div *ngIf="user.isTracker" class="col-md-3"><button type="button" class="btn btn-default" routerLink="/newuser">New User</button></div>
     <div *ngIf="!user.isTracker" class="col-md-3"><button type="button" class="btn btn-default" routerLink="/newIncident">New Incident</button></div>
   </div>
   <br>
@@ -20,7 +21,6 @@
       <th>View</th>
     </thead>
     <tbody>
-      <script> counter = 0; </script>
         <tr *ngFor="let incident of incidents">
           <td>
             {{incident.createdAt}}
@@ -31,9 +31,12 @@
           <td>
             {{incident.incidentrevisions[findRevision(incident)].shortDescription}}
           </td>
-          <td>
-            {{incident.incidentrevisions[findRevision(incident)].resolved}}
+          <td *ngIf="incident.incidentrevisions[findRevision(incident)].resolution">
+            Yes
           </td>
+          <td *ngIf="!incident.incidentrevisions[findRevision(incident)].resolution">
+              No
+            </td>
           <td>
             {{incident.incidentrevisions[findRevision(incident)].type}}
           </td>

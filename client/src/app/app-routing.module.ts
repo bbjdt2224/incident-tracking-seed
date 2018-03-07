@@ -5,6 +5,7 @@ import { IncidentDetailsComponent } from './incident-details/incident-details.co
 import { NewIncidentComponent } from './new-incident/new-incident.component';
 import { LoginComponent } from './login/login.component';
 import { UserInfoComponent } from './user-info/user-info.component';
+import { NewUserComponent } from './new-user/new-user.component';
 
 const routes: Routes = [
   { path: '', redirectTo: '/incidents', pathMatch: 'full'},
@@ -12,7 +13,8 @@ const routes: Routes = [
   { path: 'incident/:id', component: IncidentDetailsComponent},
   { path: 'newIncident', component: NewIncidentComponent},
   { path: 'login', component: LoginComponent},
-  { path: 'userinfo', component: UserInfoComponent}
+  { path: 'userinfo', component: UserInfoComponent},
+  { path: 'newuser', component: NewUserComponent}
 ];
 
 @NgModule({
