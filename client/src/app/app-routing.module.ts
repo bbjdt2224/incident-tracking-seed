@@ -8,7 +8,7 @@ import { UserInfoComponent } from './user-info/user-info.component';
 import { NewUserComponent } from './new-user/new-user.component';
 
 const routes: Routes = [
-  { path: '', redirectTo: '/incidents', pathMatch: 'full'},
+  { path: '', redirectTo: '/login', pathMatch: 'full'},
   { path: 'incidents', component: IncidentsComponent},
   { path: 'incident/:id', component: IncidentDetailsComponent},
   { path: 'newIncident', component: NewIncidentComponent},

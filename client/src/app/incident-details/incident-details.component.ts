@@ -2,6 +2,7 @@ import { Component, OnInit, Input } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Location } from '@angular/common';
 import { Incident } from '../incidents';
+import { IncidentRevision } from '../incidentrevisions';
 import { IncidentsService } from '../incidents.service';
 import { User } from '../user';
 import { UserService } from '../user.service';
@@ -18,9 +19,8 @@ export class IncidentDetailsComponent implements OnInit {
   user: User;
   revision = 0;
   trackers: User[];
-  weakness = false;
-  minor = false;
-  major = false;
+  severity: string;
+  severityclass = '';
 
   constructor(
     private route: ActivatedRoute,
@@ -42,18 +42,13 @@ export class IncidentDetailsComponent implements OnInit {
       .subscribe(incident => {
         this.incident = incident;
         this.findRevision();
+        this.findSeverity();
       });
   }
 
-  update(short: string, long: string, type: string, tracker: number, reason: string): void {
-    this.incident.incidentrevisions[this.revision].shortDescription = short;
-    this.incident.incidentrevisions[this.revision].longDescription = long;
-    this.incident.incidentrevisions[this.revision].type = type;
-    if (reason != null) {
-      this.incident.incidentrevisions[this.revision].resolution = reason;
-    }
-    this.incident.trackerId = tracker;
-    this.incidentService.updateIncident(this.incident).subscribe(result => this.goBack());
+  update(): void {
+    const revision = this.incident.incidentrevisions[this.revision];
+    this.incidentService.updateIncident(this.incident, revision).subscribe(result => this.goBack());
   }
 
   getUser(): void {
@@ -89,6 +84,26 @@ export class IncidentDetailsComponent implements OnInit {
 
   getTracker() {
     this.userService.getTrackers().subscribe(trackers => this.trackers = trackers);
+  }
+
+  findSeverity() {
+    switch (this.incident.incidentrevisions[this.revision].severity) {
+      case 1:
+        this.severity = 'Security Weakness';
+        this.severityclass = 'success';
+        break;
+      case 2:
+        this.severity = 'Minor Incident';
+        this.severityclass = 'warning';
+        break;
+      case 3:
+        this.severity = 'Major Incident';
+        this.severityclass = 'danger';
+        break;
+      default:
+        this.severity = 'Not Set';
+        break;
+    }
   }
 
 }

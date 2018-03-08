@@ -1,16 +1,18 @@
+<app-header></app-header>
 <div class="container">
-  <app-header></app-header>
+  <p style="color: red;">{{error}}</p>
+  <form>
+    Email: 
+    <input #email type="text" class="form-control" [(ngModel)]="user.email" name="email">
+    Password: 
+    <input #password type="password" class="form-control" [(ngModel)]="user.password" name="password">
+    Tracker:
+    <select #tracker class="form-control" [(ngModel)]="user.isTracker" name="tracker">
+      <option value="true">Yes</option>
+      <option value="false">No</option>
+    </select> 
+    <br>
+    <button (click)="addUser()" class="btn btn-default">Create</button>
+    <button type="button" class="btn btn-danger" routerLink="/incidents">Cancel</button>
+  </form>
 </div>
-<form>
-  Email: 
-  <input #email type="text" class="form-control">
-  Password: 
-  <input #password type="password" class="form-control">
-  Tracker:
-  <select #tracker class="form-control">
-    <option value="true">Yes</option>
-    <option value="false">No</option>
-  </select> 
-  <br>
-  <button (click)="addUser(email.value, password.value, tracker.value)" class="btn btn-default">Create</button>
-</form>

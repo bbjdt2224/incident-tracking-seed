@@ -1,16 +1,20 @@
-<div class="container">
-    <app-header></app-header>
-</div>
+<app-header></app-header>
 <div *ngIf="user">
-  <div class="row">
-    <div *ngIf="user.isTracker" class="col-md-3">Security Weaknesses: {{weakness}}</div>
-    <div *ngIf="user.isTracker" class="col-md-3">Minor Incidents: {{minor}}</div>
-    <div *ngIf="user.isTracker" class="col-md-3"> Major Incidents: {{major}}</div>
-    <div *ngIf="user.isTracker" class="col-md-3"><button type="button" class="btn btn-default" routerLink="/newuser">New User</button></div>
-    <div *ngIf="!user.isTracker" class="col-md-3"><button type="button" class="btn btn-default" routerLink="/newIncident">New Incident</button></div>
+  <div class="container header">
+    <div *ngIf="user.isTracker" class="row">
+      <div class="col-md-3"><h4>Security Weaknesses: <span class="number">{{weakness}}</span></h4></div>
+      <div class="col-md-3"><h4>Minor Incidents: <span class="number">{{minor}}</span></h4></div>
+      <div class="col-md-3"><h4> Major Incidents: <span class="number">{{major}}</span></h4></div>
+      <div class="col-md-1"></div>
+      <div class="col-md-2"><button type="button" class="btn btn-default" routerLink="/newuser">New User</button></div>
+    </div>
+    <div *ngIf="!user.isTracker" class="row">
+      <div class="col-md-10"><h3>My Incidents</h3></div>
+      <div class="col-md-2"><button type="button" class="btn btn-default" routerLink="/newIncident">New Incident</button></div>
+    </div>
   </div>
-  <br>
-  <table class="table">
+    <br>
+  <table class="table-hover well">
     <thead>
       <th>Time</th>
       <th>Date</th>
@@ -21,32 +25,31 @@
       <th>View</th>
     </thead>
     <tbody>
-        <tr *ngFor="let incident of incidents">
+        <tr *ngFor="let incident of incidents"  routerLink="/incident/{{incident.id}}">
           <td>
-            {{incident.createdAt}}
+            {{getDate(incident.createdAt).toLocaleTimeString('en-US')}}
           </td>
           <td>
-            {{incident.createdAt}}
+            {{getDate(incident.createdAt).toDateString()}}
           </td>
           <td>
             {{incident.incidentrevisions[findRevision(incident)].shortDescription}}
           </td>
-          <td *ngIf="incident.incidentrevisions[findRevision(incident)].resolution">
+          <td *ngIf="incident.incidentrevisions[findRevision(incident)].resolution" class="success">
             Yes
           </td>
-          <td *ngIf="!incident.incidentrevisions[findRevision(incident)].resolution">
+          <td *ngIf="!incident.incidentrevisions[findRevision(incident)].resolution" class="danger">
               No
             </td>
           <td>
             {{incident.incidentrevisions[findRevision(incident)].type}}
           </td>
-          <td>
-            {{incident.incidentrevisions[findRevision(incident)].severity}}
+          <td class="{{getSeverityClass(incident.incidentrevisions[findRevision(incident)].severity)}}">
+            {{getSeverity(incident.incidentrevisions[findRevision(incident)].severity)}}
           </td>
           <td>
             <button class="btn btn default" routerLink="/incident/{{incident.id}}">View</button>
           </td>
-          <script>counter ++;</script>
         </tr>
     </tbody>
   </table>

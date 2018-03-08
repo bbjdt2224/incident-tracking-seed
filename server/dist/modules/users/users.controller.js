@@ -68,5 +68,19 @@ class UsersController {
     getUser(req, res) {
         res.send(req.session.passport.user);
     }
+    checkUser(req, res) {
+        index_1.default.users.findOne({
+            where: {
+                email: req.body.email
+            }
+        }).then(user => {
+            if (user) {
+                res.send(true);
+            }
+            else {
+                res.send(false);
+            }
+        });
+    }
 }
 exports.default = new UsersController();

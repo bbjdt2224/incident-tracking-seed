@@ -1,13 +1,16 @@
+<app-header></app-header>
 <div class="container" *ngIf="user">
-    <app-header></app-header>
-</div>
-<form>
-  First Name: 
-  <input #first type="text" class="form-control" value="{{user.firstName}}">
-  Last Name: 
-  <input #last type="text" class="form-control" value="{{user.lastName}}">
-  Role: 
-  <input #role type="text" class="form-control" value="{{user.role}}">
+  <button type="button" routerLink="/incidents" class="btn btn-default">Go To All Incidents</button>
   <br>
-  <button (click)="updateUser(first.value, last.value, role.value)" class="btn btn-default">Save</button>
-</form>
+  <br>
+  <form>
+    First Name: 
+    <input #first type="text" class="form-control" [(ngModel)]="user.firstName" name="firstName">
+    Last Name: 
+    <input #last type="text" class="form-control" [(ngModel)]="user.lastName" name="lastName">
+    Role: 
+    <input #role type="text" class="form-control" [(ngModel)]="user.role" name="role">
+    <br>
+    <button (click)="updateUser()" class="btn btn-default">Save</button>
+  </form>
+</div>

@@ -27,4 +27,6 @@ export default (app: express.Express): void => {
   app.get('/api/trackers', UsersController.getTrackers);
 
   app.get('/api/user', UsersController.getUser);
+
+  app.post('/api/check', UsersController.checkUser);
 };

@@ -19,4 +19,5 @@ exports.default = (app) => {
     app.put('/api/user/:id', users_controller_1.default.editUser);
     app.get('/api/trackers', users_controller_1.default.getTrackers);
     app.get('/api/user', users_controller_1.default.getUser);
+    app.post('/api/check', users_controller_1.default.checkUser);
 };

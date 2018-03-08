@@ -12,6 +12,7 @@ import { Router } from '@angular/router';
 export class NewUserComponent implements OnInit {
 
   user = new User();
+  error = '';
 
   constructor(
     private userService: UserService,
@@ -21,11 +22,14 @@ export class NewUserComponent implements OnInit {
   ngOnInit() {
   }
 
-  addUser(email: string, password: string, isTracker: boolean) {
-    this.user.email = email;
-    this.user.password = password;
-    this.user.isTracker = isTracker;
-    this.userService.newUser(this.user).subscribe(() => this.goBack());
+  addUser() {
+    this.userService.checkEmail(this.user.email).subscribe(result => {
+      if (!result) {
+        this.userService.newUser(this.user).subscribe(() => this.goBack());
+      } else {
+        this.error = 'This email is already used';
+      }
+    });
   }
 
   goBack() {

@@ -1,13 +1,15 @@
 <nav class="navbar navbar-default" *ngIf="user">
-  <div class="container-fluid">
+  <div class="container">
       <div class="navbar-header">
-          <a class="navbar-brand" href="#">Incident Tracking</a>
+          <button type="button" (click)="info()" class="btn btn-link"><h4>{{user.firstName}} {{user.lastName}}</h4></button>
       </div>
       <ul class="nav navbar-nav">
-          <li (click)="info()" >{{user.firstName}} {{user.lastName}}</li>
+          <li><h3>Incident Tracking</h3></li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
           <li><button class="btn btn-default" (click)="logout()">Logout</button></li>
       </ul>
   </div>
 </nav>
+<br>
+<br>

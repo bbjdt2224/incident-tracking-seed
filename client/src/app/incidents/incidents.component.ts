@@ -79,4 +79,35 @@ export class IncidentsComponent implements OnInit {
     return index;
   }
 
+  getDate(timestamp: string): Date {
+    const date = new Date(timestamp);
+    return date;
+  }
+
+  getSeverity(severity: number): string {
+    switch (severity) {
+      case 1:
+        return 'Security Weakness';
+      case 2:
+        return 'Minor Incident';
+      case 3:
+        return 'Major Incident';
+      default:
+        return '';
+    }
+  }
+
+  getSeverityClass(severity: number): string {
+    switch (severity) {
+      case 1:
+        return 'success';
+      case 2:
+        return 'warning';
+      case 3:
+        return 'danger';
+      default:
+        return '';
+    }
+  }
+
 }

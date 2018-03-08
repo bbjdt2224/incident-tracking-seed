@@ -46,4 +46,10 @@ export class UserService {
       'isTracker': user.isTracker
     }, httpOptions );
   }
+
+  checkEmail(email: string): Observable<boolean> {
+    return this.http.post<boolean>('/api/check', {
+      'email': email
+    }, httpOptions);
+  }
 }

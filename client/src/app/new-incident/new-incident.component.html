@@ -1,20 +1,21 @@
+<app-header></app-header>
 <div class="container" *ngIf="trackers">
-    <app-header></app-header>
+  <form>
+    Brief Description: 
+    <input #shortDescription type="text" [(ngModel)]="incidentrevision.shortDescription" name='shortDescription' class='form-control'>
+    Detailed Description:
+    <textarea #longDescription class="form-control" [(ngModel)]="incidentrevision.longDescription" name="longDescription"></textarea>
+    Incident Type:
+    <select #type name="type" class="form-control" [(ngModel)]="incidentrevision.type">
+      <option value="Technical">Technical</option>
+      <option value="Other">Other</option>
+    </select>
+    Tracker:
+    <select #tracker name="tracker" class="form-control" [(ngModel)]="incident.trackerId">
+      <option *ngFor="let tracker of trackers" value="{{tracker.id}}">{{tracker.firstName}} {{tracker.lastName}}</option>
+    </select>
+    <br>
+    <button (click)="addIncident()" class="btn btn-default">Submit</button>
+    <button type="button" class="btn btn-danger" routerLink="/incidents">Cancel</button>
+  </form>
 </div>
-<form>
-  Brief Description: 
-  <input #shortDescription type="text" name='shortDescription' class='form-control'>
-  Detailed Description:
-  <textarea #longDescription class="form-control" name="longDescription"></textarea>
-  Incident Type:
-  <select #type name="type" class="form-control">
-    <option value="Technical">Technical</option>
-    <option value="Other">Other</option>
-  </select>
-  Tracker:
-  <select #tracker name="tracker" class="form-control">
-    <option *ngFor="let tracker of trackers" value="{{tracker.id}}">{{tracker.firstName}} {{tracker.lastName}}</option>
-  </select>
-  <br>
-  <button (click)="addIncident(shortDescription.value, longDescription.value, type.value, tracker.value)" class="btn btn-default">Submit</button>
-</form>

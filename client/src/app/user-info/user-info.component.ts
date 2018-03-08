@@ -32,10 +32,7 @@ export class UserInfoComponent implements OnInit {
     });
   }
 
-  updateUser(first: string, last: string, role: string) {
-    this.user.firstName = first;
-    this.user.lastName = last;
-    this.user.role = role;
+  updateUser() {
     this.userService.update(this.user).subscribe(result => this.goBack());
   }
 

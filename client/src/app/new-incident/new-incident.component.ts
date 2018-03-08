@@ -30,11 +30,7 @@ export class NewIncidentComponent implements OnInit {
     this.getTracker();
   }
 
-  addIncident(short: string, long: string, type: string, tracker: number): void {
-    this.incident.trackerId = tracker;
-    this.incidentrevision.shortDescription = short;
-    this.incidentrevision.longDescription = long;
-    this.incidentrevision.type = type;
+  addIncident(): void {
     this.incidentService.addIncident(this.incident, this.incidentrevision).subscribe(() => this.goBack());
   }
 
