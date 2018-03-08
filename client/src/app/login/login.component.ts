@@ -10,6 +10,7 @@ import { Router } from '@angular/router';
 })
 export class LoginComponent implements OnInit {
 
+  // a new user object to hold the users information
   user: User = new User();
 
   constructor(
@@ -20,10 +21,12 @@ export class LoginComponent implements OnInit {
   ngOnInit() {
   }
 
-  login(email: string, password: string) {
-    this.userService.login(email, password).subscribe(user => {this.user = user; this.next(); });
+  // calls the login function from the user service then redirects to the login screen
+  login() {
+    this.userService.login(this.user.email, this.user.password).subscribe(user => {this.next(); });
   }
 
+  // redirect to login screen
   next() {
     this.router.navigate(['/incidents']);
   }

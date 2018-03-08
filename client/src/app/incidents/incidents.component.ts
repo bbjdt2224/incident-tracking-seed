@@ -12,12 +12,21 @@ import { Router } from '@angular/router';
   styleUrls: ['./incidents.component.css']
 })
 export class IncidentsComponent implements OnInit {
+
+  // array of all incidents for this user
   incidents: Incident[];
+  // the current user
   user: User;
-  isLoggedIn = true;
+  // number of security weaknesses
   weakness = 0;
+  // number of minor incidents
   minor = 0;
+  // number of major incidents
   major = 0;
+  // number of unresolved incidents
+  unresolved = 0;
+  // number of new incidents
+  newincidents = 0;
 
   constructor(
     private incidentService: IncidentsService,
@@ -25,19 +34,22 @@ export class IncidentsComponent implements OnInit {
     private router: Router
   ) { }
 
+  // gets the current user and all incidents for this user
   ngOnInit() {
     this.getUser();
     this.getIncidents();
   }
 
+  //  gets an array of incidetns and sets it to this incidents array then counts the diffrent types of incidents
   getIncidents(): void {
     this.incidentService.getIncidents()
     .subscribe(incidents => {
       this.incidents = incidents;
-      this.countSeverity();
+      this.count();
     });
   }
 
+  // gets the current user and if there is no user redirect to login
   getUser(): void {
     this.userService.getUser().subscribe(user => {
       if (!user) {
@@ -47,11 +59,13 @@ export class IncidentsComponent implements OnInit {
     });
   }
 
+  // redirect ot login
   redirect() {
     this.router.navigate(['/login']);
   }
 
-  countSeverity() {
+  // counts the number of weaknesses, minor incidents, major incidents, unresolved incidents, and new incidents
+  count() {
     this.incidents.forEach(incident => {
       if (incident.incidentrevisions[this.findRevision(incident)].severity === 1) {
         this.weakness++;
@@ -62,9 +76,16 @@ export class IncidentsComponent implements OnInit {
       if (incident.incidentrevisions[this.findRevision(incident)].severity === 3) {
         this.major++;
       }
+      if (!incident.incidentrevisions[this.findRevision(incident)].severity) {
+        this.newincidents++;
+      }
+      if (!incident.incidentrevisions[this.findRevision(incident)].resolution) {
+        this.unresolved++;
+      }
     });
   }
 
+  // finds the most recent revision number of a given incident
   findRevision(incident: Incident): number {
     let id = 0;
     let index = 0;
@@ -79,11 +100,13 @@ export class IncidentsComponent implements OnInit {
     return index;
   }
 
+  // returns a date object of a given datetime string
   getDate(timestamp: string): Date {
     const date = new Date(timestamp);
     return date;
   }
 
+  // returns the string representation of a give severity number
   getSeverity(severity: number): string {
     switch (severity) {
       case 1:
@@ -97,6 +120,7 @@ export class IncidentsComponent implements OnInit {
     }
   }
 
+  // returns the class that colors the severity value
   getSeverityClass(severity: number): string {
     switch (severity) {
       case 1:
@@ -108,6 +132,20 @@ export class IncidentsComponent implements OnInit {
       default:
         return '';
     }
+  }
+
+  // returns the class that colors the row of the table
+  rowClass(incident: Incident): string {
+  if (this.user.isTracker) {
+    if (!incident.incidentrevisions[this.findRevision(incident)].severity) {
+        return 'info-row';
+      } else {
+        if (!incident.incidentrevisions[this.findRevision(incident)].resolution) {
+          return 'primary-row';
+        }
+      }
+    }
+    return '';
   }
 
 }

@@ -68,15 +68,12 @@ import db from '../../database/models/index';
     rerurns incident
     */
     getIncident(req, res) {
-        db.incidents.findOne({where: {id: req.params['id']}, include: [db.incidentrevisions]}).then(incident => {
-            // db.incidentrevisions.findOne({
-            //   where: {
-            //     incidentId: incident.id,
-            //     revisionNumber: incident.revisionId
-            //   }
-            // }).then(revision => {
-            //   res.send(revision);
-            // });
+        db.incidents.findOne({
+            where: {
+                id: req.params['id']
+            },
+            include: [db.incidentrevisions]
+        }).then(incident => {
             res.send(incident);
         });
     }

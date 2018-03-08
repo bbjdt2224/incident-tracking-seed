@@ -13,7 +13,7 @@ export default (app: express.Express): void => {
   app.use(session({ secret: 'keyboard cat', resave: true, saveUninitialized: true }));
   app.use(passport.initialize());
   app.use(passport.session());
-  //app.use(app.router);
+
   passport.use(new LocalStrategy({usernameField: 'email', passwordField: 'password'}, UsersController.configure));
 
   app.post('/api/signup', UsersController.signup);

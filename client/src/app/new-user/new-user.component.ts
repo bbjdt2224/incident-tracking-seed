@@ -11,7 +11,9 @@ import { Router } from '@angular/router';
 })
 export class NewUserComponent implements OnInit {
 
+  // the new user object to hold the new users information
   user = new User();
+  // the error message if somthing goes wrong
   error = '';
 
   constructor(
@@ -22,6 +24,8 @@ export class NewUserComponent implements OnInit {
   ngOnInit() {
   }
 
+  // calls the check email function from the user service and if email exists then display error message
+  // if not call the new user function from the user service then redirects to the incidents page
   addUser() {
     this.userService.checkEmail(this.user.email).subscribe(result => {
       if (!result) {
@@ -32,6 +36,7 @@ export class NewUserComponent implements OnInit {
     });
   }
 
+  // redirects to incidents
   goBack() {
     this.router.navigate(['/incidents']);
   }

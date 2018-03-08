@@ -11,6 +11,7 @@ import { Router } from '@angular/router';
 })
 export class UserInfoComponent implements OnInit {
 
+  // current user
   user: User;
 
   constructor(
@@ -19,10 +20,12 @@ export class UserInfoComponent implements OnInit {
     private router: Router
   ) { }
 
+  // gets the current user
   ngOnInit() {
     this.getUser();
   }
 
+  // gets the current user and if there is no user then redirect to login
   getUser() {
     this.userService.getUser().subscribe(user => {
       if (!user) {
@@ -32,14 +35,17 @@ export class UserInfoComponent implements OnInit {
     });
   }
 
+  // calls the update function from the user service then redirects to the incidents page
   updateUser() {
     this.userService.update(this.user).subscribe(result => this.goBack());
   }
 
+  // redirects to the incidents page
   goBack() {
     this.router.navigate(['/incidents']);
   }
 
+  // reidrects to the login page
   redirect() {
     this.router.navigate(['/login']);
   }

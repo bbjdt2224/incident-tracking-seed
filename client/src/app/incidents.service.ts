@@ -16,14 +16,17 @@ export class IncidentsService {
     private http: HttpClient
   ) {}
 
+  // gets all incidents for current user in array form
   getIncidents(): Observable<Incident[]> {
     return this.http.get<Incident[]>('/api/incidents');
   }
 
+  // gets a specific incident by id number
   getIncident(id: number): Observable<Incident> {
     return this.http.get<Incident>('/api/incident/' + id);
   }
 
+  // sends the infomation to make a new incident in the database
   addIncident(incident: Incident, incidentrevision: IncidentRevision): Observable<Incident> {
     return this.http.post<Incident>('/api/incidents', {
       'trackerId': incident.trackerId,
@@ -33,6 +36,7 @@ export class IncidentsService {
     }, httpOptions);
   }
 
+  // sends information to the database about an incident to be updated
   updateIncident(incident: Incident, incidentrevision: IncidentRevision): Observable<Incident> {
     return this.http.put<Incident>('/api/incident/' + incident.id, {
       'trackerId': incident.trackerId,

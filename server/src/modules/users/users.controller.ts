@@ -89,10 +89,17 @@ class UsersController {
         });
     }
 
+    /* GET /user
+    gets the current user
+    */
     getUser(req, res) {
         res.send(req.session.passport.user);
     }
 
+    /* POST /check
+    checks if there is an email in the database
+    returns a boolean
+    */
     checkUser(req, res) {
         db.users.findOne({
             where: {

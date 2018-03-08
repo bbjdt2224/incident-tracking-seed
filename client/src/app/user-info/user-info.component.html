@@ -1,16 +1,29 @@
 <app-header></app-header>
 <div class="container" *ngIf="user">
+
+  <!--back button-->
   <button type="button" routerLink="/incidents" class="btn btn-default">Go To All Incidents</button>
+
   <br>
   <br>
+
   <form>
+
+    <!--first name-->
     First Name: 
     <input #first type="text" class="form-control" [(ngModel)]="user.firstName" name="firstName">
+
+    <!--last name-->
     Last Name: 
     <input #last type="text" class="form-control" [(ngModel)]="user.lastName" name="lastName">
+
+    <!--users company role-->
     Role: 
     <input #role type="text" class="form-control" [(ngModel)]="user.role" name="role">
+
     <br>
+
+    <!--submit button-->
     <button (click)="updateUser()" class="btn btn-default">Save</button>
   </form>
 </div>

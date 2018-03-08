@@ -5,11 +5,18 @@
 
 <div class="container">
   <form>
+
+    <!--The users email-->
     Email:
-    <input #email type="text" class="form-control" >
+    <input #email type="text" class="form-control" [(ngModel)]="user.email" name="email">
+
+    <!--The users password-->
     Password: 
-    <input #password type="password" class="form-control">
+    <input #password type="password" class="form-control" [(ngModel)]="user.password" name="password">
+
     <br>
-    <button (click)="login(email.value, password.value)" class="btn btn-defaule">Login</button>
+
+    <!--submit button-->
+    <button (click)="login()" class="btn btn-defaule">Login</button>
   </form>
 </div>

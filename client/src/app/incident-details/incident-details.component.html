@@ -1,12 +1,23 @@
 <app-header></app-header>
 <div class="container" *ngIf="incident">
+  <!--Back button-->
   <button type="button" routerLink="/incidents" class="btn btn-default">Go Back To All Incidents</button>
   <br>
   <br>
   <form>
-    Brief Description: <input #short type="text" [(ngModel)]="incident.incidentrevisions[revision].shortDescription" name="shortDescription" class="form-control">
-    Detailed Description: <textarea #long class="form-control" rows="5" [(ngModel)]="incident.incidentrevisions[revision].longDescription" name="longescription"></textarea>
+
+    <!--Short Description-->
+    Brief Description: 
+    <input #short type="text" [(ngModel)]="incident.incidentrevisions[revision].shortDescription" name="shortDescription" class="form-control">
+
+    <!--Long Description-->
+    Detailed Description: 
+    <textarea #long class="form-control" rows="5" [(ngModel)]="incident.incidentrevisions[revision].longDescription" name="longescription"></textarea>
+
+    <!--Row of dropdown inputs-->
     <div class="row">
+
+      <!--Type of incident-->
       <div class="col-md-4">
         Incident Type: 
         <select #type class="form-control" [(ngModel)]="incident.incidentrevisions[revision].type" name="type">
@@ -14,19 +25,27 @@
           <option value="Other">Other</option> 
         </select>
       </div>
+
+      <!--Tracker-->
       <div class="col-md-4">
         Tracker: 
         <select #tracker class="form-control" [(ngModel)]="incident.trackerId" name="tracker">
             <option *ngFor="let tracker of trackers" value="{{tracker.id}}">{{tracker.firstName}} {{tracker.lastName}}</option>
         </select>
       </div>
+
+      <!--Severity only trackers can change-->
       <div class="col-md-4">
+
+        <!--user-->
         <div *ngIf="!user.isTracker">
           Severity:
           <div class="well {{severityclass}}">
             {{severity}}
           </div>
         </div>
+
+        <!--tracker-->
         <div *ngIf="user.isTracker">
           Severity: 
           <select #severity class="form-control" [(ngModel)]="incident.incidentrevisions[revision].severity" name="severity">
@@ -37,14 +56,67 @@
         </div>
       </div>
     </div>
+
+    <!--resolution only tracker can edit-->
+    <!--user-->
     <div *ngIf="!user.isTracker">
       Resolution: <br>
       <div class="well">{{incident.incidentrevisions[revision].resolution}}</div>
     </div>
+    <!--tracker-->
     <div *ngIf="user.isTracker">
       Resolution: <textarea #resolution class="form-control" rows="5" [(ngModel)]="incident.incidentrevisions[revision].resolution" name="resolution"></textarea>
     </div>
+
     <br>
+
+    <!--Submit Button-->
     <button (click)="update()" class="btn btn-default">Change</button>
+
+    <br>
+    <br>
+
+    <!--Dropdown of all the past revisions of this incident. Only available to trackers-->
+    <div *ngIf="user.isTracker">
+
+      <!--Show/Hide Button-->
+      <button type="button" class="btn btn-outline-primary" (click)="isCollapsed = !isCollapsed" [attr.aria-expanded]="!isCollapsed" aria-controls="history">
+        View Incident History
+      </button>
+
+      <br>
+      <br>
+
+      <!--Table of all past revisions-->
+      <div id="history" [ngbCollapse]="isCollapsed">
+          <div class="card">
+            <div class="card-body">
+              <table class="table">
+                <thead>
+                  <th>Revision Number</th>
+                  <th>Short Description</th>
+                  <th>Long Description</th>
+                  <th>Type</th>
+                  <th>Severity</th>
+                  <th>Resolution</th>
+                  <th>Date</th>
+                </thead>
+                <!--table body-->
+                <tbody>
+                  <tr *ngFor="let revision of incident.incidentrevisions">
+                    <td>{{revision.revisionNumber}}</td>
+                    <td>{{revision.shortDescription}}</td>
+                    <td>{{revision.longDescription}}</td>
+                    <td>{{revision.type}}</td>
+                    <td class="{{getSeverityClass(revision.severity)}}">{{getSeverity(revision.severity)}}</td>
+                    <td>{{revision.resolution}}</td>
+                    <td>{{getDate(revision.createdAt).toDateString()}}</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+    </div>
   </form>
 </div>

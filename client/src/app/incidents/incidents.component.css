@@ -1,11 +1,48 @@
 .success{
     color: green;
+    text-shadow:
+		-0.5px -0.5px 0 #000,
+		0.5px -0.5px 0 #000,
+		-0.5px 0.5px 0 #000,
+		0.5px 0.5px 0 #000;
 }
 .warning{
     color: #cccc00;
+    text-shadow:
+		-0.5px -0.5px 0 #000,
+		0.5px -0.5px 0 #000,
+		-0.5px 0.5px 0 #000,
+		0.5px 0.5px 0 #000;
 }
 .danger{
     color: red;
+    text-shadow:
+		-0.5px -0.5px 0 #000,
+		0.5px -0.5px 0 #000,
+		-0.5px 0.5px 0 #000,
+		0.5px 0.5px 0 #000;
+}
+.primary{
+    color: #337ab7;
+    text-shadow:
+		-0.5px -0.5px 0 #000,
+		0.5px -0.5px 0 #000,
+		-0.5px 0.5px 0 #000,
+		0.5px 0.5px 0 #000;
+}
+.info{
+    color: #5bc0de;
+    text-shadow:
+		-0.5px -0.5px 0 #000,
+		0.5px -0.5px 0 #000,
+		-0.5px 0.5px 0 #000,
+		0.5px 0.5px 0 #000;
+}
+.primary-row{
+    background-color: #337ab7;
+}
+.info-row{
+    background-color: #5bc0de;
 }
 .well {
     background-color: #dddddd;
@@ -26,5 +63,5 @@ h4{
     text-align: center;
 }
 .number{
-    color: white;
+    color: black;
 }
