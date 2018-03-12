@@ -5,12 +5,27 @@
 }
 .success{
     color: green;
+    text-shadow:
+		-0.5px -0.5px 0 #000,
+		0.5px -0.5px 0 #000,
+		-0.5px 0.5px 0 #000,
+		0.5px 0.5px 0 #000;
 }
 .warning{
-    color: #cccc00;
+    color: #a0a001;
+    text-shadow:
+		-0.5px -0.5px 0 #000,
+		0.5px -0.5px 0 #000,
+		-0.5px 0.5px 0 #000,
+		0.5px 0.5px 0 #000;
 }
 .danger{
     color: red;
+    text-shadow:
+		-0.5px -0.5px 0 #000,
+		0.5px -0.5px 0 #000,
+		-0.5px 0.5px 0 #000,
+		0.5px 0.5px 0 #000;
 }
 
 .card{
