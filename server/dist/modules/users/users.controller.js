@@ -2,14 +2,11 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 const index_1 = require("../../database/models/index");
 const passport = require("passport");
+const bcrypt = require("bcrypt");
 class UsersController {
     configure(username, password, done) {
         index_1.default.users.findOne({ where: { email: username } }).then(function (user) {
-            console.log(user.verifyPassword(user.generateHash(password)));
             if (!user) {
-                return done(null, false);
-            }
-            if (!user.verifyPassword(user.generateHash(password))) {
                 return done(null, false);
             }
             passport.serializeUser(function (user, done) {
@@ -20,7 +17,16 @@ class UsersController {
                     done(err, user);
                 });
             });
-            return done(null, user);
+            bcrypt.compare(password, user.password, function (err, res) {
+                if (res === true) {
+                    console.log('True');
+                    return done(null, user);
+                }
+                if (res === false) {
+                    console.log('False');
+                    return done(null, false);
+                }
+            });
         });
     }
     signup(req, res) {
@@ -30,8 +36,10 @@ class UsersController {
             firstName: 'Insert',
             lastName: 'Name'
         }).then(function (user) {
-            user.update({
-                password: user.generateHash(req.body.password)
+            bcrypt.hash(req.body.password, 10, function (err, hash) {
+                user.update({
+                    password: hash
+                });
             });
             res.send(user);
         });

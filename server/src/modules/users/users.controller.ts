@@ -1,14 +1,15 @@
 import db from '../../database/models/index';
 import * as passport from 'passport';
+import  * as bcrypt from 'bcrypt';
 
 
 class UsersController {
     //sets up passport to deal with login authentication
     configure(username, password, done) {
         db.users.findOne({ where: { email: username }}).then( function (user) {
-            console.log(user.verifyPassword(user.generateHash(password)));
             if (!user) { return done(null, false); }
-            if (!user.verifyPassword(user.generateHash(password))) { return done(null, false); }
+
+            //if (!user.verifyPassword(user.generateHash(password))) { return done(null, false); }
 
             passport.serializeUser(function(user, done) {
                 done(null, user);
@@ -18,7 +19,17 @@ class UsersController {
                     done(err, user);
                 });
             });
-            return done(null, user);
+
+            bcrypt.compare(password, user.password, function(err, res) {
+                if (res === true) {
+                    console.log('True');
+                    return done(null, user);
+                }
+                if (res === false) {
+                    console.log('False');
+                    return done(null, false);
+                }
+            });
         });
     }
     /* POST /signup
@@ -34,8 +45,10 @@ class UsersController {
             firstName: 'Insert',
             lastName: 'Name'
         }).then(function(user) {
-            user.update ({
-                password: user.generateHash(req.body.password)
+            bcrypt.hash(req.body.password , 10, function(err, hash) {
+                user.update ({
+                    password: hash
+                });
             });
             res.send(user);
         });
