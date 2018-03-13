@@ -1,6 +1,6 @@
 import db from '../../database/models/index';
 import * as passport from 'passport';
-import  * as bcrypt from 'bcrypt';
+import * as bcrypt from 'bcrypt';
 
 
 class UsersController {
@@ -9,26 +9,21 @@ class UsersController {
         db.users.findOne({ where: { email: username }}).then( function (user) {
             if (!user) { return done(null, false); }
 
-            //if (!user.verifyPassword(user.generateHash(password))) { return done(null, false); }
-
             passport.serializeUser(function(user, done) {
                 done(null, user);
             });
             passport.deserializeUser(function(user, done) {
-                db.users.findById(user.id, function(err, user) {
-                    done(err, user);
-                });
+                done(null, user);
             });
 
             bcrypt.compare(password, user.password, function(err, res) {
                 if (res === true) {
-                    console.log('True');
                     return done(null, user);
                 }
                 if (res === false) {
-                    console.log('False');
                     return done(null, false);
                 }
+                return done(null, false);
             });
         });
     }
@@ -60,6 +55,10 @@ class UsersController {
     */
     login(req, res) {
         res.send(req.session.passport.user);
+    }
+    /*If Login fails*/
+    fail(req, res) {
+        res.send('Wrong');
     }
     /* POST /logout
     logout the user

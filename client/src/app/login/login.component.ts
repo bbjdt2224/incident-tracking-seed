@@ -23,7 +23,11 @@ export class LoginComponent implements OnInit {
 
   // calls the login function from the user service then redirects to the login screen
   login() {
-    this.userService.login(this.user.email, this.user.password).subscribe(user => {this.next(); });
+    this.userService.login(this.user.email, this.user.password).subscribe(user => {
+      if (user) {
+        this.next();
+      }
+    });
   }
 
   // redirect to login screen

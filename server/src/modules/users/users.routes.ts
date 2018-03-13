@@ -18,7 +18,9 @@ export default (app: express.Express): void => {
 
   app.post('/api/signup', UsersController.signup);
 
-  app.post('/api/login', passport.authenticate('local'), UsersController.login);
+  app.post('/api/login', passport.authenticate('local', { failureRedirect: '/failure' }), UsersController.login);
+
+  app.get('/failure', UsersController.fail);
 
   app.post('/api/logout', UsersController.logout);
 
