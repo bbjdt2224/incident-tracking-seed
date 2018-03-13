@@ -22,7 +22,7 @@ import db from '../../database/models/index';
                     ]
                 }).then(incidents => {
                     res.send(incidents);
-                });
+                }, error => {res.send(error); });
             }
             //tracker
             else {
@@ -39,7 +39,7 @@ import db from '../../database/models/index';
                     ]
                 }).then(incidents => {
                     res.send(incidents);
-                });
+                }, error => {res.send(error); });
             }
         //}
     }
@@ -62,10 +62,10 @@ import db from '../../database/models/index';
                 type: req.body.type,
                 shortDescription: req.body.shortDescription,
                 longDescription: req.body.longDescription
-            }).then(function(revision) {
+            }).then( revision => {
                 revision.setIncident(incident);
                 res.send(incident);
-            });
+            }, error => {res.send(error); });
         });
     }
     /* GET /incident/:id
@@ -81,7 +81,7 @@ import db from '../../database/models/index';
             include: [db.incidentrevisions]
         }).then(incident => {
             res.send(incident);
-        });
+        }, error => {res.send(error); });
     }
     /* PUT /incident/:id
     updates an existing incident based on id

@@ -39,7 +39,7 @@ class UsersController {
             isTracker: req.body.isTracker,
             firstName: 'Insert',
             lastName: 'Name'
-        }).then(function(user) {
+        }).then( user => {
             bcrypt.hash(req.body.password , 10, function(err, hash) {
                 user.update ({
                     password: hash
@@ -100,7 +100,7 @@ class UsersController {
             where: {
                 isTracker: 't'
             }
-        }).then(function(trackers) {
+        }).then( trackers => {
             res.send(trackers);
         });
     }

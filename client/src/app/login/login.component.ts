@@ -21,7 +21,7 @@ export class LoginComponent implements OnInit {
   ngOnInit() {
   }
 
-  // calls the login function from the user service then redirects to the login screen
+  // calls the login function from the user service then redirects to the incidents screen
   login() {
     this.userService.login(this.user.email, this.user.password).subscribe(user => {
       if (user) {
