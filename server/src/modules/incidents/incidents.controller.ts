@@ -16,6 +16,9 @@ import db from '../../database/models/index';
                     },
                     include: [
                         db.incidentrevisions
+                    ],
+                    order: [
+                        ['updatedAt', 'DESC']
                     ]
                 }).then(incidents => {
                     res.send(incidents);
@@ -30,6 +33,9 @@ import db from '../../database/models/index';
                     ,
                     include: [
                         db.incidentrevisions
+                    ],
+                    order: [
+                        ['updatedAt', 'DESC']
                     ]
                 }).then(incidents => {
                     res.send(incidents);

@@ -6,13 +6,17 @@ class UsersController {
     //sets up passport to deal with login authentication
     configure(username, password, done) {
         db.users.findOne({ where: { email: username }}).then( function (user) {
+            console.log(user.verifyPassword(user.generateHash(password)));
             if (!user) { return done(null, false); }
-            if (!user.verifyPassword(user.password)) { return done(null, false); }
+            if (!user.verifyPassword(user.generateHash(password))) { return done(null, false); }
+
             passport.serializeUser(function(user, done) {
                 done(null, user);
             });
             passport.deserializeUser(function(user, done) {
-                done(null, user);
+                db.users.findById(user.id, function(err, user) {
+                    done(err, user);
+                });
             });
             return done(null, user);
         });

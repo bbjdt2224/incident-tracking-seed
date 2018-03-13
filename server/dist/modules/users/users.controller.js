@@ -5,17 +5,20 @@ const passport = require("passport");
 class UsersController {
     configure(username, password, done) {
         index_1.default.users.findOne({ where: { email: username } }).then(function (user) {
+            console.log(user.verifyPassword(user.generateHash(password)));
             if (!user) {
                 return done(null, false);
             }
-            if (!user.verifyPassword(user.password)) {
+            if (!user.verifyPassword(user.generateHash(password))) {
                 return done(null, false);
             }
             passport.serializeUser(function (user, done) {
                 done(null, user);
             });
             passport.deserializeUser(function (user, done) {
-                done(null, user);
+                index_1.default.users.findById(user.id, function (err, user) {
+                    done(err, user);
+                });
             });
             return done(null, user);
         });

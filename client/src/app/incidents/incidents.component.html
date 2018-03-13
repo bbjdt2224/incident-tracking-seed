@@ -16,7 +16,7 @@
         <h4>New Incidents: <span class="number">{{newincidents}}</span></h4>
       </div>
       <div class="col-md-2">
-        <button type="button" class="btn btn-default" routerLink="/newuser"
+        <button type="button" class="btn btn-info" routerLink="/newuser"
         >New User
       </button>
     </div>
@@ -24,7 +24,7 @@
     <!--The user dashboard-->
     <div *ngIf="!user.isTracker" class="row">
       <div class="col-md-10"><h3>My Incidents</h3></div>
-      <div class="col-md-2"><button type="button" class="btn btn-default" routerLink="/newIncident">New Incident</button></div>
+      <div class="col-md-2"><button type="button" class="btn btn-info" routerLink="/newIncident">New Incident</button></div>
     </div>
   </div>
     <br>
@@ -33,7 +33,7 @@
     <thead>
       <th>Time</th>
       <th>Date</th>
-      <th>Short Description</th>
+      <th>Breif Description</th>
       <th>Resolved</th>
       <th>Type</th>
       <th>Severity</th>

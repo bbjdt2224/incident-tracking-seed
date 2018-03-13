@@ -14,7 +14,7 @@ exports.default = (app) => {
     app.use(passport.session());
     passport.use(new LocalStrategy({ usernameField: 'email', passwordField: 'password' }, users_controller_1.default.configure));
     app.post('/api/signup', users_controller_1.default.signup);
-    app.post('/api/login', passport.authenticate('local', { failureRedirect: '/login' }), users_controller_1.default.login);
+    app.post('/api/login', passport.authenticate('local'), users_controller_1.default.login);
     app.post('/api/logout', users_controller_1.default.logout);
     app.put('/api/user/:id', users_controller_1.default.editUser);
     app.get('/api/trackers', users_controller_1.default.getTrackers);

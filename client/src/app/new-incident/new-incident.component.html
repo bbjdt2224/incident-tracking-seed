@@ -8,7 +8,7 @@
 
     <!--Long Description-->
     Detailed Description:
-    <textarea #longDescription class="form-control" [(ngModel)]="incidentrevision.longDescription" name="longDescription"></textarea>
+    <textarea #longDescription class="form-control" [(ngModel)]="incidentrevision.longDescription" name="longDescription" rows="5"></textarea>
 
     <!--Incident Type-->
     Incident Type:
@@ -26,7 +26,7 @@
     <br>
 
     <!--Submit button-->
-    <button (click)="addIncident()" class="btn btn-default">Submit</button>
+    <button (click)="addIncident()" class="btn btn-success">Submit</button>
 
     <!--back button-->
     <button type="button" class="btn btn-danger" routerLink="/incidents">Cancel</button>

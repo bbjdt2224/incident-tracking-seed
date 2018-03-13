@@ -1,9 +1,11 @@
 <app-header></app-header>
 <div class="container" *ngIf="incident">
   <!--Back button-->
-  <button type="button" routerLink="/incidents" class="btn btn-default">Go Back To All Incidents</button>
+  <button type="button" routerLink="/incidents" class="btn btn-primary">Go Back To All Incidents</button>
+
   <br>
   <br>
+
   <form>
 
     <!--Short Description-->
@@ -63,6 +65,7 @@
       Resolution: <br>
       <div class="well">{{incident.incidentrevisions[revision].resolution}}</div>
     </div>
+
     <!--tracker-->
     <div *ngIf="user.isTracker">
       Resolution: <textarea #resolution class="form-control" rows="5" [(ngModel)]="incident.incidentrevisions[revision].resolution" name="resolution"></textarea>
@@ -71,7 +74,7 @@
     <br>
 
     <!--Submit Button-->
-    <button (click)="update()" class="btn btn-default">Change</button>
+    <button (click)="update()" class="btn btn-info">Change</button>
 
     <br>
     <br>
@@ -93,9 +96,9 @@
             <div class="card-body">
               <table class="table">
                 <thead>
-                  <th>Revision Number</th>
-                  <th>Short Description</th>
-                  <th>Long Description</th>
+                  <th>Revision #</th>
+                  <th>Breif Description</th>
+                  <th>Detailed Description</th>
                   <th>Type</th>
                   <th>Severity</th>
                   <th>Resolution</th>
@@ -106,7 +109,16 @@
                   <tr *ngFor="let revision of incident.incidentrevisions">
                     <td>{{revision.revisionNumber}}</td>
                     <td>{{revision.shortDescription}}</td>
-                    <td>{{revision.longDescription}}</td>
+
+                    <!-- If long description is too long then shorten it and put the rest in a popover-->
+                    <td *ngIf="revision.longDescription.length>30">
+                      <button type="button" class="btn" placement="bottom" ngbPopover="{{revision.longDescription}}" popoverTitle="Detailed Description">
+                        {{revision.longDescription.substring(0,30)}}...  <i class="arrow down"></i>
+                      </button>
+                    </td>
+
+                    <!-- Otherwise just display the whole description-->
+                    <td *ngIf="revision.longDescription.length<=30">{{revision.longDescription}}</td>
                     <td>{{revision.type}}</td>
                     <td class="{{getSeverityClass(revision.severity)}}">{{getSeverity(revision.severity)}}</td>
                     <td>{{revision.resolution}}</td>
