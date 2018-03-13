@@ -47,5 +47,4 @@ export class IncidentsService {
       'severity': incidentrevision.severity
     }, httpOptions);
   }
-
 }

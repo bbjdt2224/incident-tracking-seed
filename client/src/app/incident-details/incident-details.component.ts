@@ -29,6 +29,8 @@ export class IncidentDetailsComponent implements OnInit {
   severityclass = '';
   // weather or not the past revisions drop down is collapsed or not
   isCollapsed = true;
+  // the user who made the incident
+  creator: User;
 
   constructor(
     private route: ActivatedRoute,
@@ -53,6 +55,7 @@ export class IncidentDetailsComponent implements OnInit {
         this.incident = incident;
         this.findRevision();
         this.findSeverity();
+        this.getCreator(incident.userId);
       });
   }
 
@@ -155,6 +158,11 @@ export class IncidentDetailsComponent implements OnInit {
       default:
         return '';
     }
+  }
+
+  // get the creator of the incident
+  getCreator(id: number) {
+    this.userService.getUserById(id).subscribe(user => this.creator = user);
   }
 
 }

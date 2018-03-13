@@ -27,6 +27,8 @@ export class IncidentsComponent implements OnInit {
   unresolved = 0;
   // number of new incidents
   newincidents = 0;
+  // value of search bar
+  search = '';
 
   constructor(
     private incidentService: IncidentsService,
@@ -147,5 +149,4 @@ export class IncidentsComponent implements OnInit {
     }
     return '';
   }
-
 }

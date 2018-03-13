@@ -79,6 +79,9 @@ class UsersController {
     getUser(req, res) {
         res.send(req.session.passport.user);
     }
+    getUserById(req, res) {
+        index_1.default.users.findById(req.params['id']).then(user => res.send(user));
+    }
     checkUser(req, res) {
         index_1.default.users.findOne({
             where: {

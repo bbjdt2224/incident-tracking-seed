@@ -59,4 +59,9 @@ export class UserService {
       'email': email
     }, httpOptions);
   }
+
+  // gets a user by id
+  getUserById(id: number): Observable<User> {
+    return this.http.get<User>('/api/getUser/' + id);
+  }
 }

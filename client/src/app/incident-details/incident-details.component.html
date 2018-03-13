@@ -69,6 +69,11 @@
     <!--tracker-->
     <div *ngIf="user.isTracker">
       Resolution: <textarea #resolution class="form-control" rows="5" [(ngModel)]="incident.incidentrevisions[revision].resolution" name="resolution"></textarea>
+      <br>
+      <div class="well">
+        Creator: {{creator.firstName}} {{creator.lastName}}
+      </div>
+      
     </div>
 
     <br>

@@ -112,6 +112,10 @@ class UsersController {
         res.send(req.session.passport.user);
     }
 
+    getUserById(req, res) {
+        db.users.findById(req.params['id']).then(user => res.send(user));
+    }
+
     /* POST /check
     checks if there is an email in the database
     returns a boolean

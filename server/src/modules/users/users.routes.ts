@@ -31,4 +31,6 @@ export default (app: express.Express): void => {
   app.get('/api/user', UsersController.getUser);
 
   app.post('/api/check', UsersController.checkUser);
+
+  app.get('/api/getUser/:id', UsersController.getUserById);
 };

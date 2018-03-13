@@ -21,4 +21,5 @@ exports.default = (app) => {
     app.get('/api/trackers', users_controller_1.default.getTrackers);
     app.get('/api/user', users_controller_1.default.getUser);
     app.post('/api/check', users_controller_1.default.checkUser);
+    app.get('/api/getUser/:id', users_controller_1.default.getUserById);
 };
