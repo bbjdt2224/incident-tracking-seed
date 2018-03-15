@@ -4,35 +4,35 @@ import { User } from '../user';
 import { Router } from '@angular/router';
 
 @Component({
-  selector: 'app-login',
-  templateUrl: './login.component.html',
-  styleUrls: ['./login.component.css']
+    selector: 'app-login',
+    templateUrl: './login.component.html',
+    styleUrls: ['./login.component.scss']
 })
 export class LoginComponent implements OnInit {
 
-  // a new user object to hold the users information
-  user: User = new User();
+    // a new user object to hold the users information
+    user: User = new User();
 
-  constructor(
-    private userService: UserService,
-    private router: Router
-  ) { }
+    constructor(
+        private userService: UserService,
+        private router: Router
+    ) { }
 
-  ngOnInit() {
-  }
+    ngOnInit() {
+    }
 
-  // calls the login function from the user service then redirects to the incidents screen
-  login() {
-    this.userService.login(this.user.email, this.user.password).subscribe(user => {
-      if (user) {
-        this.next();
-      }
-    });
-  }
+    // calls the login function from the user service then redirects to the incidents screen
+    login() {
+        this.userService.login(this.user.email, this.user.password).subscribe(user => {
+            if (user) {
+                this.next();
+            }
+        });
+    }
 
-  // redirect to login screen
-  next() {
-    this.router.navigate(['/incidents']);
-  }
+    // redirect to login screen
+    next() {
+        this.router.navigate(['/incidents']);
+    }
 
 }

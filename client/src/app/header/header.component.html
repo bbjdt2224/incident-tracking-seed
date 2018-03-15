@@ -1,19 +1,25 @@
 <!--The header at the top of most pages-->
 <nav class="navbar navbar-default" *ngIf="user">
-  <div class="container">
-      <div class="navbar-header">
-          <!-- The users name that when clicked leads to the edit user info page-->
-          <button type="button" (click)="info()" class="btn btn-link"><h4>{{user.firstName}} {{user.lastName}}</h4></button>
-      </div>
-      <ul class="nav navbar-nav">
-          <!--Title of the site-->
-          <li><h3>Incident Tracking</h3></li>
-      </ul>
-      <ul class="nav navbar-nav navbar-right">
-          <!--The logout button-->
-          <li><button class="btn btn-danger" (click)="logout()">Logout</button></li>
-      </ul>
-  </div>
+    <div class="container">
+        <div class="navbar-header">
+            <!-- The users name that when clicked leads to the edit user info page-->
+            <button type="button" (click)="info()" class="btn btn-link">
+                <h4>{{user.firstName}} {{user.lastName}}</h4>
+            </button>
+        </div>
+        <ul class="nav navbar-nav">
+            <!--Title of the site-->
+            <li>
+                <h3>Incident Tracking</h3>
+            </li>
+        </ul>
+        <ul class="nav navbar-nav navbar-right">
+            <!--The logout button-->
+            <li>
+                <button class="btn btn-danger" (click)="logout()">Logout</button>
+            </li>
+        </ul>
+    </div>
 </nav>
 <br>
 <br>

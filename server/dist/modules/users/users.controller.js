@@ -52,49 +52,57 @@ class UsersController {
         res.send('Logged Out');
     }
     editUser(req, res) {
-        index_1.default.users.update({
-            firstName: req.body.firstName,
-            lastName: req.body.lastName,
-            role: req.body.role
-        }, {
-            where: {
-                id: req.params['id']
-            }
-        }).then(user => {
-            req.session.passport.user.firstName = req.body.firstName;
-            req.session.passport.user.lastName = req.body.lastName;
-            req.session.passport.user.role = req.body.role;
-            res.send(user);
-        });
+        if (req.session.passport.user) {
+            index_1.default.users.update({
+                firstName: req.body.firstName,
+                lastName: req.body.lastName,
+                role: req.body.role
+            }, {
+                where: {
+                    id: req.params['id']
+                }
+            }).then(user => {
+                req.session.passport.user.firstName = req.body.firstName;
+                req.session.passport.user.lastName = req.body.lastName;
+                req.session.passport.user.role = req.body.role;
+                res.send(user);
+            });
+        }
     }
     getTrackers(req, res) {
-        index_1.default.users.findAll({
-            where: {
-                isTracker: 't'
-            }
-        }).then(trackers => {
-            res.send(trackers);
-        });
+        if (req.session.passport.user) {
+            index_1.default.users.findAll({
+                where: {
+                    isTracker: 't'
+                }
+            }).then(trackers => {
+                res.send(trackers);
+            });
+        }
     }
     getUser(req, res) {
         res.send(req.session.passport.user);
     }
     getUserById(req, res) {
-        index_1.default.users.findById(req.params['id']).then(user => res.send(user));
+        if (req.session.passport.user) {
+            index_1.default.users.findById(req.params['id']).then(user => res.send(user));
+        }
     }
     checkUser(req, res) {
-        index_1.default.users.findOne({
-            where: {
-                email: req.body.email
-            }
-        }).then(user => {
-            if (user) {
-                res.send(true);
-            }
-            else {
-                res.send(false);
-            }
-        });
+        if (req.session.passport.user) {
+            index_1.default.users.findOne({
+                where: {
+                    email: req.body.email
+                }
+            }).then(user => {
+                if (user) {
+                    res.send(true);
+                }
+                else {
+                    res.send(false);
+                }
+            });
+        }
     }
 }
 exports.default = new UsersController();

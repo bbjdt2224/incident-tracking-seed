@@ -76,33 +76,37 @@ class UsersController {
         role
     */
     editUser(req, res) {
-        db.users.update({
-            firstName: req.body.firstName,
-            lastName: req.body.lastName,
-            role: req.body.role
-          }, {
-            where: {
-              id: req.params['id']
-            }
-        }).then(user => {
-            req.session.passport.user.firstName = req.body.firstName;
-            req.session.passport.user.lastName = req.body.lastName;
-            req.session.passport.user.role = req.body.role;
-            res.send(user);
-        });
+        if(req.session.passport.user) {
+            db.users.update({
+                firstName: req.body.firstName,
+                lastName: req.body.lastName,
+                role: req.body.role
+            }, {
+                where: {
+                id: req.params['id']
+                }
+            }).then(user => {
+                req.session.passport.user.firstName = req.body.firstName;
+                req.session.passport.user.lastName = req.body.lastName;
+                req.session.passport.user.role = req.body.role;
+                res.send(user);
+            });
+        }
     }
 
     /* GET /tracker
     gets all the trackers
     */
     getTrackers(req, res) {
-        db.users.findAll({
-            where: {
-                isTracker: 't'
-            }
-        }).then( trackers => {
-            res.send(trackers);
-        });
+        if(req.session.passport.user) {
+            db.users.findAll({
+                where: {
+                    isTracker: 't'
+                }
+            }).then( trackers => {
+                res.send(trackers);
+            });
+        }
     }
 
     /* GET /user
@@ -113,7 +117,9 @@ class UsersController {
     }
 
     getUserById(req, res) {
-        db.users.findById(req.params['id']).then(user => res.send(user));
+        if(req.session.passport.user) {
+            db.users.findById(req.params['id']).then(user => res.send(user));
+        }
     }
 
     /* POST /check
@@ -121,17 +127,19 @@ class UsersController {
     returns a boolean
     */
     checkUser(req, res) {
-        db.users.findOne({
-            where: {
-                email: req.body.email
-            }
-        }).then(user => {
-            if (user) {
-                res.send(true);
-            } else {
-                res.send(false);
-            }
-        });
+        if(req.session.passport.user) {
+            db.users.findOne({
+                where: {
+                    email: req.body.email
+                }
+            }).then(user => {
+                if (user) {
+                    res.send(true);
+                } else {
+                    res.send(false);
+                }
+            });
+        }
     }
 }
 

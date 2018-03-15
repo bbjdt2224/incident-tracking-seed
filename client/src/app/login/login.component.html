@@ -4,19 +4,19 @@
 <br>
 
 <div class="container">
-  <form>
+    <form>
 
-    <!--The users email-->
-    Email:
-    <input #email type="text" class="form-control" [(ngModel)]="user.email" name="email">
+        <!--The users email-->
+        Email:
+        <input #email type="text" class="form-control" [(ngModel)]="user.email" name="email">
 
-    <!--The users password-->
-    Password: 
-    <input #password type="password" class="form-control" [(ngModel)]="user.password" name="password">
+        <!--The users password-->
+        Password:
+        <input #password type="password" class="form-control" [(ngModel)]="user.password" name="password">
 
-    <br>
+        <br>
 
-    <!--submit button-->
-    <button (click)="login()" class="btn btn-success">Login</button>
-  </form>
+        <!--submit button-->
+        <button (click)="login()" class="btn btn-success">Login</button>
+    </form>
 </div>

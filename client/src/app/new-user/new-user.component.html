@@ -1,30 +1,30 @@
 <app-header></app-header>
 <div class="container">
-  <!--Error message if email is already used-->
-  <p style="color: red;">{{error}}</p>
-  <form>
+    <!--Error message if email is already used-->
+    <p style="color: red;">{{error}}</p>
+    <form>
 
-    <!--email-->
-    Email: 
-    <input #email type="text" class="form-control" [(ngModel)]="user.email" name="email">
+        <!--email-->
+        Email:
+        <input #email type="text" class="form-control" [(ngModel)]="user.email" name="email">
 
-    <!--password-->
-    Password: 
-    <input #password type="password" class="form-control" [(ngModel)]="user.password" name="password">
+        <!--password-->
+        Password:
+        <input #password type="password" class="form-control" [(ngModel)]="user.password" name="password">
 
-    <!--if new user is a tracker-->
-    Tracker:
-    <select #tracker class="form-control" [(ngModel)]="user.isTracker" name="tracker">
-      <option value="true">Yes</option>
-      <option value="false">No</option>
-    </select> 
+        <!--if new user is a tracker-->
+        Tracker:
+        <select #tracker class="form-control" [(ngModel)]="user.isTracker" name="tracker">
+            <option value="true">Yes</option>
+            <option value="false">No</option>
+        </select>
 
-    <br>
+        <br>
 
-    <!--submit button-->
-    <button (click)="addUser()" class="btn btn-info">Create</button>
+        <!--submit button-->
+        <button (click)="addUser()" class="btn btn-info">Create</button>
 
-    <!--back button-->
-    <button type="button" class="btn btn-danger" routerLink="/incidents">Cancel</button>
-  </form>
+        <!--back button-->
+        <button type="button" class="btn btn-danger" routerLink="/incidents">Cancel</button>
+    </form>
 </div>

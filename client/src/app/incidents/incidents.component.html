@@ -1,83 +1,102 @@
 <app-header></app-header>
 <div *ngIf="user">
-  <div class="container header">
-    <!--The tracker dashboard-->
-    <div *ngIf="user.isTracker" class="row">
-      <div class="col-md-4 success"><h4>Security Weaknesses: <span class="number">{{weakness}}</span></h4></div>
-      <div class="col-md-4 warning"><h4>Minor Incidents: <span class="number">{{minor}}</span></h4></div>
-      <div class="col-md-4 danger"><h4> Major Incidents: <span class="number">{{major}}</span></h4></div>     
-    </div>
-    <hr>
-    <div *ngIf="user.isTracker" class="row">
-      <div class="col-md-5 primary">
-        <h4>Unresolved Incidents: <span class="number">{{unresolved}}</span></h4>
-      </div>
-      <div class="col-md-5 info">
-        <h4>New Incidents: <span class="number">{{newincidents}}</span></h4>
-      </div>
-      <div class="col-md-2">
-        <button type="button" class="btn btn-info" routerLink="/newuser">
-          New User
-        </button>
-      </div>
-    </div>
+    <div class="container header">
+        <!--The tracker dashboard-->
+        <div *ngIf="user.isTracker" class="row">
+            <div class="col-md-4 success">
+                <h4>Security Weaknesses:
+                    <span class="number">{{weakness}}</span>
+                </h4>
+            </div>
+            <div class="col-md-4 warning">
+                <h4>Minor Incidents:
+                    <span class="number">{{minor}}</span>
+                </h4>
+            </div>
+            <div class="col-md-4 danger">
+                <h4> Major Incidents:
+                    <span class="number">{{major}}</span>
+                </h4>
+            </div>
+        </div>
+        <hr>
+        <div *ngIf="user.isTracker" class="row">
+            <div class="col-md-5 primary">
+                <h4>Unresolved Incidents:
+                    <span class="number">{{unresolved}}</span>
+                </h4>
+            </div>
+            <div class="col-md-5 info">
+                <h4>New Incidents:
+                    <span class="number">{{newincidents}}</span>
+                </h4>
+            </div>
+            <div class="col-md-2">
+                <button type="button" class="btn btn-info" routerLink="/newuser">
+                    New User
+                </button>
+            </div>
+        </div>
 
-    <!--The user dashboard-->
-    <div *ngIf="!user.isTracker" class="row">
-      <div class="col-md-10"><h3>My Incidents</h3></div>
-      <div class="col-md-2"><button type="button" class="btn btn-info" routerLink="/newIncident">New Incident</button></div>
+        <!--The user dashboard-->
+        <div *ngIf="!user.isTracker" class="row">
+            <div class="col-md-10">
+                <h3>My Incidents</h3>
+            </div>
+            <div class="col-md-2">
+                <button type="button" class="btn btn-info" routerLink="/newIncident">New Incident</button>
+            </div>
+        </div>
     </div>
-  </div>
 
     <br>
 
-  <table class="table-hover well">
-    <!--Table Headers-->
-    <thead>
-      <th>Time</th>
-      <th>Date</th>
-      <th>Breif Description</th>
-      <th>Resolved</th>
-      <th>Type</th>
-      <th>Severity</th>
-      <th>View</th>
-    </thead>
-    <tbody>
-        <!--For loop that goes through every incident in the incidents table-->
-        <tr *ngFor="let incident of incidents"  routerLink="/incident/{{incident.id}}" class="{{rowClass(incident)}}">
-          <!--Date-->
-          <td>
-            {{getDate(incident.updatedAt).toLocaleTimeString('en-US')}}
-          </td>
-          <!--Time-->
-          <td>
-            {{getDate(incident.updatedAt).toDateString()}}
-          </td>
-          <!--Short Description-->
-          <td>
-            {{incident.incidentrevisions[findRevision(incident)].shortDescription}}
-          </td>
-          <!--If the issue is resolved-->
-          <td *ngIf="incident.incidentrevisions[findRevision(incident)].resolution" class="success">
-            Yes
-          </td>
-          <td *ngIf="!incident.incidentrevisions[findRevision(incident)].resolution" class="danger">
-              No
-          </td>
-          <!--Type of the issue-->
-          <td>
-            {{incident.incidentrevisions[findRevision(incident)].type}}
-          </td>
-          <!--Issue Severity-->
-          <td class="{{getSeverityClass(incident.incidentrevisions[findRevision(incident)].severity)}}">
-            {{getSeverity(incident.incidentrevisions[findRevision(incident)].severity)}}
-          </td>
-          <!--Button that links to the view screen-->
-          <td>
-            <button class="btn btn default" routerLink="/incident/{{incident.id}}">View</button>
-          </td>
-        </tr>
-    </tbody>
-  </table>
+    <table class="table-hover well">
+        <!--Table Headers-->
+        <thead>
+            <th>Time</th>
+            <th>Date</th>
+            <th>Breif Description</th>
+            <th>Resolved</th>
+            <th>Type</th>
+            <th>Severity</th>
+            <th>View</th>
+        </thead>
+        <tbody>
+            <!--For loop that goes through every incident in the incidents table-->
+            <tr *ngFor="let incident of incidents" routerLink="/incident/{{incident.id}}" class="{{rowClass(incident)}}">
+                <!--Date-->
+                <td>
+                    {{getDate(incident.updatedAt).toLocaleTimeString('en-US')}}
+                </td>
+                <!--Time-->
+                <td>
+                    {{getDate(incident.updatedAt).toDateString()}}
+                </td>
+                <!--Short Description-->
+                <td>
+                    {{incident.incidentrevisions[findRevision(incident)].shortDescription}}
+                </td>
+                <!--If the issue is resolved-->
+                <td *ngIf="incident.incidentrevisions[findRevision(incident)].resolution" class="success">
+                    Yes
+                </td>
+                <td *ngIf="!incident.incidentrevisions[findRevision(incident)].resolution" class="danger">
+                    No
+                </td>
+                <!--Type of the issue-->
+                <td>
+                    {{incident.incidentrevisions[findRevision(incident)].type}}
+                </td>
+                <!--Issue Severity-->
+                <td class="{{getSeverityClass(incident.incidentrevisions[findRevision(incident)].severity)}}">
+                    {{getSeverity(incident.incidentrevisions[findRevision(incident)].severity)}}
+                </td>
+                <!--Button that links to the view screen-->
+                <td>
+                    <button class="btn btn default" routerLink="/incident/{{incident.id}}">View</button>
+                </td>
+            </tr>
+        </tbody>
+    </table>
 </div>
-

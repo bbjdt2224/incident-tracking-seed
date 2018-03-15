@@ -2,14 +2,8 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 const passport = require("passport");
 const LocalStrategy = require("passport-local");
-const cookieParser = require("cookie-parser");
-const bodyParser = require("body-parser");
-const session = require("express-session");
 const users_controller_1 = require("./users.controller");
 exports.default = (app) => {
-    app.use(cookieParser());
-    app.use(bodyParser.urlencoded({ extended: true }));
-    app.use(session({ secret: 'keyboard cat', resave: true, saveUninitialized: true }));
     app.use(passport.initialize());
     app.use(passport.session());
     passport.use(new LocalStrategy({ usernameField: 'email', passwordField: 'password' }, users_controller_1.default.configure));
