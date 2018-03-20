@@ -1,8 +1,0 @@
-{
-	"trackerId": "2",
-	"incidentId": "1", 
-	"type": "Technical", 
-	"shortDescription": "Hacked", 
-	"longDescription": "We Got Hacked"
-
-}
